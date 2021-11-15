@@ -1,3 +1,4 @@
+/* !!!! REMEMBER TO (setpagar.) WHEN INITIALIZING IN MAIN !!!!*/
 :-dynamic(draw_done/1).
 :-dynamic(isAir/2).
 :-dynamic(isPagar/2).
@@ -29,6 +30,7 @@ isAir(9,7).
 isAir(9,5).
 isAir(10,5).
 
+/* why did i paste this */
 isSoil(1,19).
 isSoil(1,18).
 isSoil(1,17).
@@ -124,7 +126,7 @@ draw_point(X,Y):-
 draw_point(_,_):-
 	write('.').
 
-/* Traversal */
+/* traversal */
 
 /* done */
 draw_map(_,Y):-
@@ -150,6 +152,7 @@ draw_map(X,Y):-
 	Z is X+1,
 	draw_map(Z,Y).
 
+/* Commands */
 map :-
     write('-----Leaf Valley-----'),nl,nl,
 	retract(draw_done(_)),
