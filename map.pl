@@ -89,9 +89,9 @@ isRanch(10,13).
 /* Initialization (im too lazy to print then paste this here) */
 setpagar:- 
 	forall(between(0,20,X), assertz(isPagar(X,0))),
-    forall(between(0,20,X), assertz(isPagar(X,20))),
-    forall(between(0,20,Y), assertz(isPagar(0,Y))),
-    forall(between(0,20,Y), assertz(isPagar(20,Y))).
+	forall(between(0,20,X), assertz(isPagar(X,20))),
+	forall(between(0,20,Y), assertz(isPagar(0,Y))),
+	forall(between(0,20,Y), assertz(isPagar(20,Y))).
 	
 /* Printing Map */
 
@@ -154,8 +154,8 @@ draw_map(X,Y):-
 
 /* Commands */
 map :-
-    write('-----Leaf Valley-----'),nl,nl,
+	write('-----Leaf Valley-----'),nl,nl,
 	retract(draw_done(_)),
-    assertz(draw_done(false)),
-    draw_map(0,0),!,nl,nl,
+	assertz(draw_done(false)),
+	draw_map(0,0),!,nl,nl,
 	write('---------------------'),nl,nl.
