@@ -1,4 +1,3 @@
-/* !!!! REMEMBER TO (setpagar.) WHEN INITIALIZING IN MAIN !!!!*/
 :-dynamic(draw_done/1).
 :-dynamic(isAir/2).
 :-dynamic(isPagar/2).
@@ -29,6 +28,22 @@ isAir(9,6).
 isAir(9,7).
 isAir(9,5).
 isAir(10,5).
+
+isAir(15,15).
+isAir(15,16).
+isAir(15,17).
+isAir(16,14).
+isAir(16,15).
+isAir(16,16).
+isAir(16,17).
+isAir(17,13).
+isAir(17,14).
+isAir(17,15).
+isAir(17,16).
+isAir(14,13).
+isAir(14,14).
+isAir(14,15).
+isAir(13,14).
 
 /* why did i paste this */
 isSoil(1,19).
@@ -82,9 +97,9 @@ isSoil(7,14).
 isSoil(7,13).
 
 isMarket(15,3).
-isQuest(17,16).
+isQuest(18,18).
 isHouse(8,12).
-isRanch(10,13).
+isRanch(9,19).
 
 /* Initialization (im too lazy to print then paste this here) */
 setpagar:- 
@@ -153,7 +168,12 @@ draw_map(X,Y):-
 	draw_map(Z,Y).
 
 /* Commands */
-map :-
+map:-
+	\+menu_status(outside),!,
+	write('Anda tidak sedang berada di luar'),
+	nl,nl,fail.
+
+map:-
 	write('-----Leaf Valley-----'),nl,nl,
 	retract(draw_done(_)),
 	assertz(draw_done(false)),
