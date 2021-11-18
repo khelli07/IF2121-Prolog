@@ -57,6 +57,21 @@ fish('large crucian carp').
 fish('large sea bass').
 fish('large snakehead').
 
+/* RANCH */
+/* ranch(X): X adalah hasil produksi ranch */
+ranch('egg').
+ranch('golden egg').
+ranch('milk').
+ranch('golden milk').
+ranch('wool').
+ranch('golden wool').
+
+/* ANIMAL */
+/* animal(X): X adalah animal */
+animal('chicken').
+animal('cow').
+animal('sheep').
+
 /* SEASON SEED */
 /* seasonSeed(X, Y): X adalah seed pada season Y */
 seasonSeed('turnip',spring).
@@ -144,3 +159,7 @@ price('chili peppers',300).
 price('blue magic red flower',600).
 price('true magic red flower',600).
 price('sunsweet flower',1000).
+
+price('chicken',1000).
+price('cow',2000).
+price('sheep',4000).
