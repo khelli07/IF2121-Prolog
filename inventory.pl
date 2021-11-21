@@ -16,12 +16,18 @@ itemSum([H|T], Sum):-
     itemSum(T, SumTail),
     Sum is Count + SumTail.
 
-writeInventoryItem([]).
-writeInventoryItem([H|T]):-
+itemTotal([], 0).
+itemTotal([_|T], Total):-
+    itemTotal(T, Total1),
+    Total is 1 + Total1.
+
+writeInventoryItem([], _).
+writeInventoryItem([H|T], Number):-
     itemName(H, Name),
     itemCount(H, Value),
-    format('~w ~w', [Value, Name]), nl,
-    writeInventoryItem(T).
+    format('~w. ~w: ~w units', [Number, Name, Value]), nl,
+    Number1 is Number + 1,
+    writeInventoryItem(T, Number1).
 
 isItemIn([], _, 0).
 isItemIn([H|T], Name, Bool):-
@@ -35,16 +41,10 @@ isItemIn([H|T], Name, Bool):-
         ->  isItemIn(T, Name, Bool1)),
     Bool is Bool1.
 
-getItem([H|T], ItemName, Item):-
-    itemName(H, HeadName),
-    toUpper(HeadName, HeadUpper),
-    toUpper(ItemName, NameUpper),
-
-    (HeadUpper == NameUpper
-        ->  Item1 = H, !;
-    HeadUpper \== NameUpper
-        ->  getItem(T, ItemName, Item1)),
-    Item = Item1.
+getItem([H|_], 1, H).
+getItem([_|T], Number, Item):-
+    Number1 is Number - 1,
+    getItem(T, Number1, Item).
 
 insertItem([], Item, [Item]).
 insertItem([H|T], Item, NL):-
@@ -91,7 +91,7 @@ deleteItem([H|T], Item, NL):-
                NewValue == 0 
                     -> NL = T, !;
                NewValue < 0 
-                    -> format('You don\'t have that many ~w. Cancelling..', [HeadName])
+                    -> format('You don\'t have that many ~w. Cancelling..', [HeadName]), !
            ), !;
 
     HeadName \== Name
@@ -122,20 +122,25 @@ inventory:-
     baglist(List),
     itemSum(List, Sum), nl,
     format('Your inventory capacity (~w/100)', [Sum]), nl,
-    writeInventoryItem(List).
+    writeInventoryItem(List, 1).
 
 throwItem:-
     baglist(List),
-    write('What do you want to throw? (Use \'\', e.g. \'fishing rod\')'), nl,
-    read(_ItemName), nl,
-    isItemIn(List, _ItemName, Bool),
+    inventory, nl,
+    write('What do you want to throw?'), nl,
+    write('Input number: '), read(Number),
+    itemTotal(List, Total),
     (
-        Bool == 1
-            -> write('How many? '), read_integer(X),
-               Item = [_ItemName, X],
-               throwFromBag(Item), !;
-        Bool == 0
-            -> write('You don\'t even have that item :(')
+        Number < 0
+            -> write('Please input a valid number!'), !;
+        Number > Total
+            -> write('Please input a valid number!'), !;
+        Number =< Total
+            -> getItem(List, Number, Item1),
+               itemName(Item1, ItemName),
+               write('How many? '), read_integer(X),
+               Item = [ItemName, X],
+               throwFromBag(Item), !
     ).
     
 
