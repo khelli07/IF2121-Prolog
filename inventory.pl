@@ -4,10 +4,15 @@
 /* Initialize bag */
 baglist([]).
 
-/* Item selector */
+/* Item getter */
 itemName([Name|_], Name).
 itemCount([_|T], Value):-
     T = [Value|_].
+
+getItem([H|_], 1, H).
+getItem([_|T], Number, Item):-
+    Number1 is Number - 1,
+    getItem(T, Number1, Item).
 
 /* Bag functions */
 itemSum([], 0).
@@ -40,11 +45,6 @@ isItemIn([H|T], Name, Bool):-
     HeadUpper \== NameUpper
         ->  isItemIn(T, Name, Bool1)),
     Bool is Bool1.
-
-getItem([H|_], 1, H).
-getItem([_|T], Number, Item):-
-    Number1 is Number - 1,
-    getItem(T, Number1, Item).
 
 insertItem([], Item, [Item]).
 insertItem([H|T], Item, NL):-
@@ -128,7 +128,7 @@ throwItem:-
     baglist(List),
     inventory, nl,
     write('What do you want to throw?'), nl,
-    write('Input number: '), read(Number),
+    write('Input number: '), read_integer(Number),
     itemTotal(List, Total),
     (
         Number < 0
