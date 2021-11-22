@@ -229,35 +229,16 @@ itemType('hoe', tool_item).
 itemType('fishing rod', tool_item).
 
 itemType('arowana',fish_item).
-itemType('arowana',fish_item).
-itemType('arowana',fish_item).
-itemType('arowana',fish_item).
-itemType('beltfish',fish_item).
 itemType('beltfish',fish_item).
 itemType('carp',fish_item).
-itemType('carp',fish_item).
-itemType('carp',fish_item).
-itemType('carp',fish_item).
-itemType('char',fish_item).
 itemType('char',fish_item).
 itemType('cherry trout',fish_item).
-itemType('cherry trout',fish_item).
-itemType('honmoroko',fish_item).
 itemType('honmoroko',fish_item).
 itemType('keiji salmon',fish_item).
-itemType('keiji salmon',fish_item).
-itemType('keiji salmon',fish_item).
-itemType('keiji salmon',fish_item).
 itemType('killfish',fish_item).
-itemType('killfish',fish_item).
-itemType('killfish',fish_item).
-itemType('lake prawn',fish_item).
 itemType('lake prawn',fish_item).
 itemType('large crucian carp',fish_item).
 itemType('large sea bass',fish_item).
-itemType('large sea bass',fish_item).
-itemType('large snakehead',fish_item).
-itemType('large snakehead',fish_item).
 itemType('large snakehead',fish_item).
 
 itemType('turnip',harvest_item).

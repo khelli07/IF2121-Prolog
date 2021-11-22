@@ -2,11 +2,11 @@
 :-dynamic(isAir/2).
 :-dynamic(isPagar/2).
 :-dynamic(isDiggedTile/2).
-:-dynamic(isPlayer/2).
+:-dynamic(locPlayer/2).
 :-dynamic(isSoil/2).
 draw_done(false).
 
-isPlayer(1,1).
+locPlayer(1,1).
 
 isAir(7,3).
 isAir(5,4).
@@ -115,7 +115,7 @@ draw_point(X,Y):-
 	isPagar(X,Y),!,
 	write('#'),!.
 draw_point(X,Y):-
-	isPlayer(X,Y),!,
+	locPlayer(X,Y),!,
 	write('P'),!.
 draw_point(X,Y):-
 	isAir(X,Y),!,
