@@ -3,17 +3,17 @@
 move(_,_):-
 	\+menu_status(outside),!,
 	write('Anda tidak sedang berada di luar'),
-	nl,!.
+	nl,fail.
 
 move(P,Q):-
 	isPagar(P,Q),!,
 	write('Anda menabrak tembok!'),
-	nl,!.
+	nl,fail.
 
 move(P,Q):-
 	isAir(P,Q),!,
 	write('Anda terjatuh ke kolam!'),
-	nl,!.
+	nl,fail.
 
 move(P,Q):-
 	retract(locPlayer(_,_)),

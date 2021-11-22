@@ -11,16 +11,22 @@ menu_status(game_not_started).
     etc. (can't think of more rn)
 */
 
+start:-
+	\+menu_status(game_not_started),!,
+	write('Permainan sudah dimulai! Silahkan exit terlebih dahulu.'),
+	nl,nl,fail.
+
 /* Commands */
 start:-
 	/* file load */
 	nl,
 	['map.pl'],
 	['move.pl'],
-    ['items.pl'],
-    ['inventory.pl'],
-    ['quest.pl'],
-    ['market.pl'],
+	['near.pl'],
+	['items.pl'],
+	['inventory.pl'],
+	['quest.pl'],
+	['market.pl'],
 
 	/* initializaitons */
 	setpagar,
@@ -37,11 +43,21 @@ start:-
 new:-
 	\+menu_status(title_screen),!,
 	write('Tidak dapat memulai game baru!'),
-	nl,nl,!.
+	nl,nl,fail.
 
 new:-
 	retract(menu_status(title_screen)),
 	asserta(menu_status(outside)),
 	write('Game baru sukses dibuat'),
 	nl,nl,!.
-	
+
+exit:-
+	menu_status(game_not_started),!,
+	write('Permainan belum dimulai!'),
+	nl,nl,fail.
+
+exit:-
+	retractall(menu_status(_)),
+	asserta(menu_status(game_not_started)),
+	write('Thanks for Playing!'),
+	nl,nl,!.
