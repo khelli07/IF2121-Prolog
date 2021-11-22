@@ -14,6 +14,14 @@ season(summer).
 season(fall).
 season(winter).
 
+/* TYPE */
+/* type(X): X adalah type */
+type(harvest_item).
+type(fish_item).
+type(tool_item).
+type(ranch_item).
+type(animal_item).
+
 /* SEEDS */
 /* seed(X): X adalah seed */
 seed('turnip').
@@ -100,6 +108,9 @@ seasonSeed('blue magic red flower',fall).
 seasonSeed('true magic red flower',fall).
 seasonSeed('sunsweet flower',fall).
 
+/* SEASON FISH*/
+/* seasonFish(X,Y): X adalah fish pada season Y */
+
 seasonFish('arowana',spring).
 seasonFish('arowana',summer).
 seasonFish('arowana',fall).
@@ -163,3 +174,75 @@ price('sunsweet flower',1000).
 price('chicken',1000).
 price('cow',2000).
 price('sheep',4000).
+
+/* ITEM TYPE */
+/* itemType(X,Y): X adalah item dengan tipe Y */
+itemType('hoe', tool_item).
+itemType('fishing rod', tool_item).
+
+itemType('arowana',fish_item).
+itemType('arowana',fish_item).
+itemType('arowana',fish_item).
+itemType('arowana',fish_item).
+itemType('beltfish',fish_item).
+itemType('beltfish',fish_item).
+itemType('carp',fish_item).
+itemType('carp',fish_item).
+itemType('carp',fish_item).
+itemType('carp',fish_item).
+itemType('char',fish_item).
+itemType('char',fish_item).
+itemType('cherry trout',fish_item).
+itemType('cherry trout',fish_item).
+itemType('honmoroko',fish_item).
+itemType('honmoroko',fish_item).
+itemType('keiji salmon',fish_item).
+itemType('keiji salmon',fish_item).
+itemType('keiji salmon',fish_item).
+itemType('keiji salmon',fish_item).
+itemType('killfish',fish_item).
+itemType('killfish',fish_item).
+itemType('killfish',fish_item).
+itemType('lake prawn',fish_item).
+itemType('lake prawn',fish_item).
+itemType('large crucian carp',fish_item).
+itemType('large sea bass',fish_item).
+itemType('large sea bass',fish_item).
+itemType('large snakehead',fish_item).
+itemType('large snakehead',fish_item).
+itemType('large snakehead',fish_item).
+
+itemType('turnip',harvest_item).
+itemType('potato',harvest_item).
+itemType('cucumber',harvest_item).
+itemType('strawberries',harvest_item).
+itemType('cabbage',harvest_item).
+itemType('moondrop flower',harvest_item).
+itemType('toy flower',harvest_item).
+itemType('tomato',harvest_item).
+itemType('corn',harvest_item).
+itemType('onion',harvest_item).
+itemType('pumpkin',harvest_item).
+itemType('pineapple',harvest_item).
+itemType('pink cat flower',harvest_item).
+itemType('eggplant',harvest_item).
+itemType('carrot',harvest_item).
+itemType('yam',harvest_item).
+itemType('spinach',harvest_item).
+itemType('green pepper',harvest_item).
+itemType('adzuki beans',harvest_item).
+itemType('chili peppers',harvest_item).
+itemType('blue magic red flower',harvest_item).
+itemType('true magic red flower',harvest_item).
+itemType('sunsweet flower',harvest_item).
+
+itemType('egg',ranch_item).
+itemType('golden egg',ranch_item).
+itemType('milk',ranch_item).
+itemType('golden milk',ranch_item).
+itemType('wool',ranch_item).
+itemType('golden wool',ranch_item).
+
+itemType('chicken',animal_item).
+itemType('cow',animal_item).
+itemType('sheep',animal_item).
