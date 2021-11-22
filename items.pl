@@ -171,6 +171,26 @@ price('blue magic red flower',600).
 price('true magic red flower',600).
 price('sunsweet flower',1000).
 
+price('arowana',350).
+price('beltfish',200).
+price('carp',120).
+price('char',120).
+price('cherry trout',120).
+price('honmoroko',50).
+price('keiji salmon',350).
+price('killfish',50).
+price('lake prawn',20).
+price('large crucian carp',200).
+price('large sea bass',200).
+price('large snakehead',200).
+
+price('egg',35).
+price('golden egg',125).
+price('milk',55).
+price('golden milk',250).
+price('wool',75).
+price('golden wool',375).
+
 price('chicken',1000).
 price('cow',2000).
 price('sheep',4000).
