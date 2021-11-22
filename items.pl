@@ -143,6 +143,34 @@ seasonFish('large snakehead',spring).
 seasonFish('large snakehead',summer).
 seasonFish('large snakehead',fall).
 
+/* GROW TIME */
+/* growTime(X,Y): Waktu tumbuh seed X adalah Y hari */
+growTime('turnip',4).
+growTime('potato',7).
+growTime('cucumber',9).
+growTime('strawberries',9).
+growTime('cabbage',14).
+growTime('moondrop flower',6).
+growTime('toy flower',12).
+
+growTime('tomato',9).
+growTime('corn',14).
+growTime('onion',7).
+growTime('pumpkin',14).
+growTime('pineapple',20).
+growTime('pink cat flower',6).
+
+growTime('eggplant',9).
+growTime('carrot',7).
+growTime('yam',6).
+growTime('spinach',5).
+growTime('green pepper',7).
+growTime('adzuki beans',10).
+growTime('chili peppers',12).
+growTime('blue magic red flower',10).
+growTime('true magic red flower',10).
+growTime('sunsweet flower',10).
+
 /* PRICE */
 /* price(X,Y): Harga X adalah Y */
 price('turnip',120).
