@@ -16,25 +16,25 @@ move(P,Q):-
 	nl,!.
 
 move(P,Q):-
-	retract(isPlayer(_,_)),
-	asserta(isPlayer(P,Q)),!.
+	retract(locPlayer(_,_)),
+	asserta(locPlayer(P,Q)),!.
 
 w:-
-	isPlayer(A,B),!,
+	locPlayer(A,B),!,
 	C is B-1,
 	move(A,C),!.
 	
 a:- 
-	isPlayer(A,B),!,
+	locPlayer(A,B),!,
 	C is A-1,
 	move(C,B),!.
 
 s:- 
-	isPlayer(A,B),!,
+	locPlayer(A,B),!,
 	C is B+1,
 	move(A,C),!.
 
 d:-
-	isPlayer(A,B),!,
+	locPlayer(A,B),!,
 	C is A+1,
 	move(C,B),!.
