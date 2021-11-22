@@ -99,6 +99,14 @@ deleteItem([H|T], Item, NL):-
            NL = [H|NL1]).
 
 /* Bag manipulation */
+/* How to use: 
+    saveToBag(['corn', 10]) 
+    saveToBag(['Level 2 fishing rod', 1])
+    deleteFromBag(['Level 2 fishing rod', 1])
+    
+    Generalisasinya -> namaCommand([NamaItem, JumlahItem])
+*/
+
 saveToBag(Item):-
     baglist(OldBag),
     itemSum(OldBag, Sum),
@@ -111,20 +119,26 @@ saveToBag(Item):-
     Sum + Count > 100 
         ->  write('Your inventory is full!')).
 
-throwFromBag(Item):-
+deleteFromBag(Item):-
     baglist(OldBag),
     deleteItem(OldBag, Item, UpdatedBag),
     asserta(baglist(UpdatedBag)),
     retract((baglist(OldBag))).
 
 /* Bag command */
+isInventory:-
+    \+menu_status(title_screen),
+    \+menu_status(game_not_started).
+
 inventory:-
+    isInventory,
     baglist(List),
     itemSum(List, Sum), nl,
     format('Your inventory capacity (~w/100)', [Sum]), nl,
     writeInventoryItem(List, 1).
 
 throwItem:-
+    isInventory,
     baglist(List),
     inventory, nl,
     write('What do you want to throw?'), nl,
@@ -140,7 +154,7 @@ throwItem:-
                itemName(Item1, ItemName),
                write('How many? '), read_integer(X),
                Item = [ItemName, X],
-               throwFromBag(Item), !
+               deleteFromBag(Item), !
     ).
     
 

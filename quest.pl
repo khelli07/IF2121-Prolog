@@ -6,8 +6,6 @@
 :- dynamic(isQuestActive/1).
 isQuestActive(0).
 
-/* Special quest items */
-
 /* Quest functions */
 writeQuest:-
     write('You need to collect: '), nl,
@@ -51,6 +49,14 @@ generateNormalQuest:-
     ).
 
 generateSpecialQuest:-
+    retractAllQuest,
+
+    random(3, 10, HCount),
+    random(3, 10, FCount),
+    random(3, 10, RCount),
+
+
+
     write('Coming soon...').
 
 /* Quest handler */
