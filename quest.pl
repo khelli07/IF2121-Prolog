@@ -1,10 +1,15 @@
 /* quest.pl */
+:- include('items.pl').
 :- include('inventory.pl').
 :- dynamic(harvest_item/2).
 :- dynamic(fish_item/2).
 :- dynamic(ranch_item/2).
 :- dynamic(isQuestActive/1).
+:- dynamic(isSpecialQuest/1).
+
+/* Initialize status */
 isQuestActive(0).
+isSpecialQuest(0).
 
 /* Quest functions */
 writeQuest:-
@@ -17,24 +22,14 @@ writeQuest:-
     format('- ~w ~w',[FCount, FName]), nl,
     format('- ~w ~w',[RCount, RName]), nl.
 
-retractAllQuest:-
+retractQuest:-
     retractall(harvest_item(_, _)),
     retractall(fish_item(_, _)),
     retractall(ranch_item(_, _)),
-    retractall(isQuestActive(_)).
+    retractall(isQuestActive(_)),
+    retractall(isSpecialQuest(_)).
 
-/* Quest generator */
-generateNormalQuest:-
-    retractAllQuest,
-
-    random(1, 10, HCount),
-    random(1, 10, FCount),
-    random(1, 10, RCount),
-
-    asserta(harvest_item('harvest item', HCount)),
-    asserta(fish_item('fish', FCount)),
-    asserta(ranch_item('ranch item', RCount)),
-    
+acceptQuestHandler:-
     writeQuest,
     write('Accept quest (yes/no)? '), read(X), nl,
     toUpper(X, Answer),
@@ -44,30 +39,62 @@ generateNormalQuest:-
                asserta(isQuestActive(1)), !;
         Answer == 'NO'
             -> write('Quest discarded, aborting...'),
-               retractAllQuest,
-               asserta(isQuestActive(0)), !
-    ).
+               retractQuest,
+               asserta(isQuestActive(0)), 
+               asserta(isSpecialQuest(0)), !;
+        (Answer \== 'YES'; Answer \== 'NO')
+            -> write('Please input a valid command!'),
+               retractQuest,
+               asserta(isQuestActive(0)), 
+               asserta(isSpecialQuest(0))
+    ), !.
+
+/* Quest generator */
+generateNormalQuest:-
+    retractQuest,
+
+    random(1, 10, HCount),
+    random(1, 10, FCount),
+    random(1, 10, RCount),
+
+    asserta(harvest_item('harvest item', HCount)),
+    asserta(fish_item('fish', FCount)),
+    asserta(ranch_item('ranch item', RCount)),
+    
+    acceptQuestHandler.
 
 generateSpecialQuest:-
-    retractAllQuest,
+    retractQuest,
 
     random(3, 10, HCount),
     random(3, 10, FCount),
     random(3, 10, RCount),
 
+    random(1, 23, HarvestNumber),
+    random(1, 12, FishNumber),
+    random(1, 3, RanchNumber),
 
+    harvestTag(HarvestName, HarvestNumber), !,
+    fishTag(FishName, FishNumber), !,
+    ranchTag(RanchName, RanchNumber), !,
 
-    write('Coming soon...').
+    asserta(harvest_item(HarvestName, HCount)),
+    asserta(fish_item(FishName, FCount)),
+    asserta(ranch_item(RanchName, RCount)),
+
+    acceptQuestHandler,
+    asserta(isSpecialQuest(1)).
 
 /* Quest handler */
 submitQuest:-
-    write('Coming soon...').
+    baglist(OldBag),
+    writeInventoryItem(OldBag, 1).    
 
 showQuest:-
-    isQuestActive(Status),
+    isQuestActive(Status), nl,
     (
         Status == 0
-            -> nl, write('You don\'t have any quest right now.'), !;
+            -> write('You don\'t have any quest right now.'), !;
         Status == 1
             -> writeQuest, !
     ).

@@ -110,7 +110,6 @@ seasonSeed('sunsweet flower',fall).
 
 /* SEASON FISH*/
 /* seasonFish(X,Y): X adalah fish pada season Y */
-
 seasonFish('arowana',spring).
 seasonFish('arowana',summer).
 seasonFish('arowana',fall).
@@ -275,3 +274,46 @@ itemType('golden wool',ranch_item).
 itemType('chicken',animal_item).
 itemType('cow',animal_item).
 itemType('sheep',animal_item).
+
+/* ITEM TAGS */
+/* Special quest items */
+fishTag('arowana', 1).
+fishTag('beltfish', 2).
+fishTag('carp', 3).
+fishTag('char', 4).
+fishTag('cherry trout', 5).
+fishTag('honmoroko', 6).
+fishTag('keiji salmon', 7).
+fishTag('killfish', 8).
+fishTag('lake prawn', 9).
+fishTag('large crucian carp', 10).
+fishTag('large sea bass', 11).
+fishTag('large snakehead', 12).
+
+harvestTag('turnip', 1).
+harvestTag('potato', 2).
+harvestTag('cucumber', 3).
+harvestTag('strawberries', 4).
+harvestTag('cabbage', 5).
+harvestTag('moondrop flower', 6).
+harvestTag('toy flower', 7).
+harvestTag('tomato', 8).
+harvestTag('corn', 9).
+harvestTag('onion', 10).
+harvestTag('pumpkin', 11).
+harvestTag('pineapple', 12).
+harvestTag('pink cat flower', 13).
+harvestTag('eggplant', 14).
+harvestTag('carrot', 15).
+harvestTag('yam', 16).
+harvestTag('spinach', 17).
+harvestTag('green pepper', 18).
+harvestTag('adzuki beans', 19).
+harvestTag('chili peppers', 20).
+harvestTag('blue magic red flower', 21).
+harvestTag('true magic red flower', 22).
+harvestTag('sunsweet flower', 23).
+
+ranchTag('egg', 1).
+ranchTag('milk', 2).
+ranchTag('wool', 3).
