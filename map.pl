@@ -100,6 +100,7 @@ isMarket(15,3).
 isQuest(18,18).
 isHouse(8,12).
 isRanch(9,19).
+isAlchemist(1,2).
 
 /* Initialization (im too lazy to print then paste this here) */
 setpagar:- 

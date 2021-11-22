@@ -10,10 +10,16 @@ menu_status(game_not_started).
 
 /* Commands */
 start:-
+	\+menu_status(game_not_started),!,
+	write('Game sudah dimulai!'),
+	nl,nl,!.
+
+start:-
 	%file load
 	nl,
 	['map.pl'],
 	['move.pl'],
+	['near.pl'],
 	%initializaitons
 	setpagar,
 	retract(menu_status(_)),
