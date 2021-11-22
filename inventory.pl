@@ -9,10 +9,21 @@ itemName([Name|_], Name).
 itemCount([_|T], Value):-
     T = [Value|_].
 
-getItem([H|_], 1, H).
-getItem([_|T], Number, Item):-
+getItemByIndex([H|_], 1, H).
+getItemByIndex([_|T], Number, Item):-
     Number1 is Number - 1,
-    getItem(T, Number1, Item).
+    getItemByIndex(T, Number1, Item).
+
+getItemByName([H|T], ItemName, Item):-
+    itemName(H, HeadName),
+    toUpper(HeadName, HeadUpper),
+    toUpper(ItemName, NameUpper),
+
+    (HeadUpper == NameUpper
+        ->  Item1 = H, !;
+    HeadUpper \== NameUpper
+        ->  getItemByName(T, ItemName, Item1)),
+    Item = Item1.
 
 /* Bag functions */
 itemSum([], 0).
@@ -25,6 +36,19 @@ itemTotal([], 0).
 itemTotal([_|T], Total):-
     itemTotal(T, Total1),
     Total is 1 + Total1.
+
+totalByType([], _, 0).
+totalByType([H|T], TypeName, Total):-
+    itemName(H, HName),
+    itemType(HName, Type),
+    itemCount(H, Count),
+    totalByType(T, TypeName, Total1),
+
+    (Type == TypeName
+        -> Total is Count + Total1, !;
+    Type \== TypeName
+        -> Total is Total1
+    ).
 
 writeInventoryItem([], _).
 writeInventoryItem([H|T], Number):-
@@ -70,33 +94,33 @@ deleteItem([Item], Item1, NL):-
     NewValue is Count - Decrement,
 
     (NewValue == 0 
-        -> NL = [], !;
+        ->  NL = [], !;
     NewValue > 0 
-        -> H1 = [Name, NewValue],
-           NL = [H1], !;
+        ->  H1 = [Name, NewValue],
+            NL = [H1], !;
     NewValue < 0
-        -> format('You don\'t have that many ~w. Cancelling..', [Name])).
+        ->  format('You don\'t have that many ~w. Cancelling..', [Name])).
 
 deleteItem([H|T], Item, NL):-
     itemName(Item, Name),
     itemName(H, HeadName),
     (HeadName == Name 
-        -> itemCount(H, Count),
-           itemCount(Item, Decrement),
-           NewValue is Count - Decrement,
-           (
+        ->  itemCount(H, Count),
+            itemCount(Item, Decrement),
+            NewValue is Count - Decrement,
+            (
                NewValue > 0 
-                    -> H1 = [HeadName, NewValue],
-                       NL = [H1|T], !;
+                    ->  H1 = [HeadName, NewValue],
+                        NL = [H1|T], !;
                NewValue == 0 
-                    -> NL = T, !;
+                    ->  NL = T, !;
                NewValue < 0 
-                    -> format('You don\'t have that many ~w. Cancelling..', [HeadName]), !
-           ), !;
+                    ->  format('You don\'t have that many ~w. Cancelling..', [HeadName]), !
+            ), !;
 
     HeadName \== Name
-        -> deleteItem(T, Item, NL1),
-           NL = [H|NL1]).
+        ->  deleteItem(T, Item, NL1),
+            NL = [H|NL1]).
 
 /* Bag manipulation */
 /* How to use: 
@@ -139,22 +163,22 @@ inventory:-
 
 throwItem:-
     isInventory,
-    baglist(List),
+    baglist(Bag),
     inventory, nl,
     write('What do you want to throw?'), nl,
     write('Input number: '), read_integer(Number),
-    itemTotal(List, Total),
+    itemTotal(Bag, Total),
     (
         Number < 0
-            -> write('Please input a valid number!'), !;
+            ->  write('Please input a valid number!'), !;
         Number > Total
-            -> write('Please input a valid number!'), !;
+            ->  write('Please input a valid number!'), !;
         Number =< Total
-            -> getItem(List, Number, Item1),
-               itemName(Item1, ItemName),
-               write('How many? '), read_integer(X),
-               Item = [ItemName, X],
-               deleteFromBag(Item), !
+            ->  getItemByIndex(Bag, Number, Item1),
+                itemName(Item1, ItemName),
+                write('How many? '), read_integer(X),
+                Item = [ItemName, X],
+                deleteFromBag(Item), !
     ).
     
 
