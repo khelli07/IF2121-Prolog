@@ -27,7 +27,7 @@ start:-
 	['inventory.pl'],
 	['quest.pl'],
 	['market.pl'],
-
+	['farming.pl'],
 	/* initializaitons */
 	setpagar,
 	retractall(menu_status(_)),

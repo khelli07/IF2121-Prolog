@@ -1,9 +1,16 @@
+% additional legends:
+% . -> path tile (not soil)
+% C -> crop tile (still growing)
+% H -> harvest tile (ready to harvest)
+
 :-dynamic(draw_done/1).
 :-dynamic(isAir/2).
 :-dynamic(isPagar/2).
 :-dynamic(isDiggedTile/2).
 :-dynamic(locPlayer/2).
 :-dynamic(isSoil/2).
+:-dynamic(isCrop/2).
+:-dynamic(isHarvest/2).
 draw_done(false).
 
 locPlayer(1,1).
@@ -139,6 +146,12 @@ draw_point(X,Y):-
 draw_point(X,Y):-
 	isSoil(X,Y),!,
 	write('-'),!.
+draw_point(X,Y):-
+	isCrop(X,Y),!,
+	write('C'),!.
+draw_point(X,Y):-
+	isHarvest(X,Y),!,
+	write('H'),!.
 draw_point(_,_):-
 	write('.').
 
