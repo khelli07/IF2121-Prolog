@@ -1,6 +1,9 @@
 /* Game states */
 :- dynamic(menu_status/1). 
 menu_status(game_not_started).
+/* TEMPORARY!!! */
+:- dynamic(season/1). %should be in house.pl
+season(spring). %spring, summer, fall, winter
 
 /* 
     Available commands by menu status:

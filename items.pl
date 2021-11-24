@@ -82,31 +82,31 @@ animal('sheep').
 
 /* SEASON SEED */
 /* seasonSeed(X, Y): X adalah seed pada season Y */
-seasonSeed('turnip',spring).
-seasonSeed('potato',spring).
-seasonSeed('cucumber',spring).
-seasonSeed('strawberries',spring).
-seasonSeed('cabbage',spring).
-seasonSeed('moondrop flower',spring).
-seasonSeed('toy flower',spring).
+seasonSeed('turnip seed',spring).
+seasonSeed('potato seed',spring).
+seasonSeed('cucumber seed',spring).
+seasonSeed('strawberries seed',spring).
+seasonSeed('cabbage seed',spring).
+seasonSeed('moondrop flower seed',spring).
+seasonSeed('toy flower seed',spring).
 
-seasonSeed('tomato',summer).
-seasonSeed('corn',summer).
-seasonSeed('onion',summer).
-seasonSeed('pumpkin',summer).
-seasonSeed('pineapple',summer).
-seasonSeed('pink cat flower',summer).
+seasonSeed('tomato seed',summer).
+seasonSeed('corn seed',summer).
+seasonSeed('onion seed',summer).
+seasonSeed('pumpkin seed',summer).
+seasonSeed('pineapple seed',summer).
+seasonSeed('pink cat flower seed',summer).
 
-seasonSeed('eggplant',fall).
-seasonSeed('carrot',fall).
-seasonSeed('yam',fall).
-seasonSeed('spinach',fall).
-seasonSeed('green pepper',fall).
-seasonSeed('adzuki beans',fall).
-seasonSeed('chili peppers',fall).
-seasonSeed('blue magic red flower',fall).
-seasonSeed('true magic red flower',fall).
-seasonSeed('sunsweet flower',fall).
+seasonSeed('eggplant seed',fall).
+seasonSeed('carrot seed',fall).
+seasonSeed('yam seed',fall).
+seasonSeed('spinach seed',fall).
+seasonSeed('green pepper seed',fall).
+seasonSeed('adzuki beans seed',fall).
+seasonSeed('chili peppers seed',fall).
+seasonSeed('blue magic red flower seed',fall).
+seasonSeed('true magic red flower seed',fall).
+seasonSeed('sunsweet flower seed',fall).
 
 /* SEASON FISH*/
 /* seasonFish(X,Y): X adalah fish pada season Y */
@@ -144,31 +144,31 @@ seasonFish('large snakehead',fall).
 
 /* GROW TIME */
 /* growTime(X,Y): Waktu tumbuh seed X adalah Y hari */
-growTime('turnip',4).
-growTime('potato',7).
-growTime('cucumber',9).
-growTime('strawberries',9).
-growTime('cabbage',14).
-growTime('moondrop flower',6).
-growTime('toy flower',12).
+growTime('turnip seed',4).
+growTime('potato seed',7).
+growTime('cucumber seed',9).
+growTime('strawberries seed',9).
+growTime('cabbage seed',14).
+growTime('moondrop flower seed',6).
+growTime('toy flower seed',12).
 
-growTime('tomato',9).
-growTime('corn',14).
-growTime('onion',7).
-growTime('pumpkin',14).
-growTime('pineapple',20).
-growTime('pink cat flower',6).
+growTime('tomato seed',9).
+growTime('corn seed',14).
+growTime('onion seed',7).
+growTime('pumpkin seed',14).
+growTime('pineapple seed',20).
+growTime('pink cat flower seed',6).
 
-growTime('eggplant',9).
-growTime('carrot',7).
-growTime('yam',6).
-growTime('spinach',5).
-growTime('green pepper',7).
-growTime('adzuki beans',10).
-growTime('chili peppers',12).
-growTime('blue magic red flower',10).
-growTime('true magic red flower',10).
-growTime('sunsweet flower',10).
+growTime('eggplant seed',9).
+growTime('carrot seed',7).
+growTime('yam seed',6).
+growTime('spinach seed',5).
+growTime('green pepper seed',7).
+growTime('adzuki beans seed',10).
+growTime('chili peppers seed',12).
+growTime('blue magic red flower seed',10).
+growTime('true magic red flower seed',10).
+growTime('sunsweet flower seed',10).
 
 /* PRICE */
 /* price(X,Y): Harga X adalah Y */
@@ -274,6 +274,33 @@ itemType('golden wool',ranch_item).
 itemType('chicken',animal_item).
 itemType('cow',animal_item).
 itemType('sheep',animal_item).
+
+/* Seeds */
+itemType('turnip seed',seed).
+itemType('potato seed',seed).
+itemType('cucumber seed',seed).
+itemType('strawberries seed',seed).
+itemType('cabbage seed',seed).
+itemType('moondrop flower seed',seed).
+itemType('toy flower seed',seed).
+
+itemType('tomato seed',seed).
+itemType('corn seed',seed).
+itemType('onion seed',seed).
+itemType('pumpkin seed',seed).
+itemType('pineapple seed',seed).
+itemType('pink cat flower seed',seed).
+
+itemType('eggplant seed',seed).
+itemType('carrot seed',seed).
+itemType('yam seed',seed).
+itemType('spinach seed',seed).
+itemType('green pepper seed',seed).
+itemType('adzuki beans seed',seed).
+itemType('chili peppers seed',seed).
+itemType('blue magic red flower seed',seed).
+itemType('true magic red flower seed',seed).
+itemType('sunsweet flower seed',seed).
 
 /* ITEM TAGS */
 /* Special quest items */
