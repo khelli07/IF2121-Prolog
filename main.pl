@@ -31,6 +31,7 @@ start:-
 	['quest.pl'],
 	['market.pl'],
 	['farming.pl'],
+	['utilities.pl'],
 	/* initializaitons */
 	setpagar,
 	retractall(menu_status(_)),

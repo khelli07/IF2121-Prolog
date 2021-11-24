@@ -24,31 +24,31 @@ type(animal_item).
 
 /* SEEDS */
 /* seed(X): X adalah seed */
-seed('turnip').
-seed('potato').
-seed('cucumber').
-seed('strawberries').
-seed('cabbage').
-seed('moondrop flower').
-seed('toy flower').
+seed('turnip seed').
+seed('potato seed').
+seed('cucumber seed').
+seed('strawberries seed').
+seed('cabbage seed').
+seed('moondrop flower seed').
+seed('toy flower seed').
 
-seed('tomato').
-seed('corn').
-seed('onion').
-seed('pumpkin').
-seed('pineapple').
-seed('pink cat flower').
+seed('tomato seed').
+seed('corn seed').
+seed('onion seed').
+seed('pumpkin seed').
+seed('pineapple seed').
+seed('pink cat flower seed').
 
-seed('eggplant').
-seed('carrot').
-seed('yam').
-seed('spinach').
-seed('green pepper').
-seed('adzuki beans').
-seed('chili peppers').
-seed('blue magic red flower').
-seed('true magic red flower').
-seed('sunsweet flower').
+seed('eggplant seed').
+seed('carrot seed').
+seed('yam seed').
+seed('spinach seed').
+seed('green pepper seed').
+seed('adzuki beans seed').
+seed('chili peppers seed').
+seed('blue magic red flower seed').
+seed('true magic red flower seed').
+seed('sunsweet flower seed').
 
 /* FISH */
 /* fish(X): X adalah fish */
@@ -169,6 +169,33 @@ growTime('chili peppers seed',12).
 growTime('blue magic red flower seed',10).
 growTime('true magic red flower seed',10).
 growTime('sunsweet flower seed',10).
+
+/* GROW */
+growTo('turnip seed','turnip').
+growTo('potato seed','potato').
+growTo('cucumber seed','cucumber').
+growTo('strawberries seed','strawberries').
+growTo('cabbage seed','cabbage').
+growTo('moondrop flower seed','moondrop flower').
+growTo('toy flower seed','toy flower').
+
+growTo('tomato seed','tomato').
+growTo('corn seed','corn').
+growTo('onion seed','onion').
+growTo('pumpkin seed','pumpkin').
+growTo('pineapple seed','pineapple').
+growTo('pink cat flower seed','pink cat flower').
+
+growTo('eggplant seed','eggplant').
+growTo('carrot seed','carrot').
+growTo('yam seed','yam').
+growTo('spinach seed','spinach').
+growTo('green pepper seed','green pepper').
+growTo('adzuki beans seed','adzuki').
+growTo('chili peppers seed','chili peppers').
+growTo('blue magic red flower seed','blue magic red flower').
+growTo('true magic red flower seed','true magic red flower').
+growTo('sunsweet flower seed','sunsweet flower').
 
 /* PRICE */
 /* price(X,Y): Harga X adalah Y */
