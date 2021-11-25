@@ -11,9 +11,16 @@
 :-dynamic(isSoil/2).
 :-dynamic(isCrop/2).
 :-dynamic(isHarvest/2).
+:-dynamic(isAlchemist/2).
 draw_done(false).
 
-locPlayer(1,1).
+isMarket(15,3).
+isQuest(18,18).
+isHouse(8,12).
+isRanch(9,19).
+isAlchemist(1,2).
+
+locPlayer(8,13).%starts near house
 
 isAir(7,3).
 isAir(5,4).
@@ -103,12 +110,6 @@ isSoil(7,15).
 isSoil(7,14).
 isSoil(7,13).
 
-isMarket(15,3).
-isQuest(18,18).
-isHouse(8,12).
-isRanch(9,19).
-isAlchemist(1,2).
-
 /* Initialization (im too lazy to print then paste this here) */
 setpagar:- 
 	forall(between(0,20,X), assertz(isPagar(X,0))),
@@ -148,10 +149,13 @@ draw_point(X,Y):-
 	write('-'),!.
 draw_point(X,Y):-
 	isCrop(X,Y),!,
-	write('C'),!.
+	write('*'),!.
 draw_point(X,Y):-
 	isHarvest(X,Y),!,
-	write('H'),!.
+	write('+'),!.
+draw_point(X,Y):-
+	isAlchemist(X,Y),!,
+	write('?'),!.
 draw_point(_,_):-
 	write('.').
 

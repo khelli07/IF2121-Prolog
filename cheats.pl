@@ -11,3 +11,7 @@ setSeason(S):-
 gotoFarm:-
 	retract(locPlayer(_,_)),
 	asserta(locPlayer(5,13)),!.
+	
+gotoaAlchemist:-
+	retract(locPlayer(_,_)),
+	asserta(locPlayer(1,2)),!.

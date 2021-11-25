@@ -3,7 +3,7 @@
 %commands: potion (open potion inventory), alchemist (open alchemist store)
 
 :-dynamic(gandalf/1). %[potion name, amount]
-:-dynamic(potion/1). %[potion name, amount]
+:-dynamic(potionBag/1). %[potion name, amount]
 :-dynamic(kaburTimer/1). %alchemist akan tutup setelah 5 kali beli
 
 kaburTimer(0).
@@ -41,13 +41,13 @@ alchemist:-
 	write('Anda tidak sedang berada di luar!'),
 	nl,nl,fail.
 
-/*
+
 alchemist:-
 	locPlayer(P,Q),
-	\+isAlchemist(P,Q),
-	write('Alchemist? doko desu ka?'),
+	\+isAlchemist(P,Q),!,
+	write('Alchemist??'),
 	nl,nl,fail,!.
-*/
+
 
 alchemist:-
 	money(X),X =< 500,

@@ -31,6 +31,7 @@ start:-
 	['quest.pl'],
 	['market.pl'],
 	['farming.pl'],
+	['alchemist.pl'],
 	['utilities.pl'],
 	/* initializaitons */
 	setpagar,

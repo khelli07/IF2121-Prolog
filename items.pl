@@ -30,10 +30,7 @@ changeFishingRodLevel :-
 
 /* SEASON */
 /* season(X): X adalah season */
-season(spring).
-season(summer).
-season(fall).
-season(winter).
+/* sudah ada di main */
 
 /* TYPE */
 /* type(X): X adalah type */
