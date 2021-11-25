@@ -217,6 +217,32 @@ growTo('sunsweet flower seed','sunsweet flower').
 
 /* PRICE */
 /* price(X,Y): Harga X adalah Y */
+price('turnip seed',120).
+price('potato seed',150).
+price('cucumber seed',200).
+price('strawberries seed',150).
+price('cabbage seed',500).
+price('moondrop flower seed',500).
+price('toy flower seed',400).
+
+price('tomato seed',200).
+price('corn seed',300).
+price('onion seed',150).
+price('pumpkin seed',500).
+price('pineapple seed',1000).
+price('pink cat flower seed',300).
+
+price('eggplant seed',120).
+price('carrot seed',300).
+price('yam seed',300).
+price('spinach seed',200).
+price('green pepper seed',150).
+price('adzuki beans seed',300).
+price('chili peppers seed',300).
+price('blue magic red flower seed',600).
+price('true magic red flower seed',600).
+price('sunsweet flower seed',1000).
+
 price('turnip',120).
 price('potato',150).
 price('cucumber',200).
@@ -266,6 +292,15 @@ price('golden wool',375).
 price('chicken',1000).
 price('cow',2000).
 price('sheep',4000).
+
+price('Level 1 fishing rod', 500).
+price('Level 1 hoe', 500).
+price('Level 2 fishing rod', 1000).
+price('Level 2 hoe', 1000).
+price('Level 3 fishing rod', 1500).
+price('Level 3 hoe', 1500).
+price('Level 4 fishing rod', 2500).
+price('Level 4 hoe', 2500).
 
 /* ITEM TYPE */
 /* itemType(X,Y): X adalah item dengan tipe Y */

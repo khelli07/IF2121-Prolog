@@ -1,6 +1,4 @@
 /* quest.pl */
-:- include('items.pl').
-:- include('inventory.pl').
 :- dynamic(harvest_item/2).
 :- dynamic(fish_item/2).
 :- dynamic(ranch_item/2).
@@ -109,7 +107,11 @@ submitQuest:-
             RQuest =< RCount)
                 ->  write('You have successfully completed the quest!'), nl,
                     random(500, 800, Reward), 
+                    
+                    changeMoney(Reward), money(Money),
                     format('Recieved ~w gold.', [Reward]),
+                    format('Your current balance is ~w.', [Money]).
+                    
                     retractQuest, 
                     asserta(isQuestActive(0)), 
                     asserta(isSpecialQuest(0)), !;
@@ -135,7 +137,11 @@ submitQuest:-
             RQuest =< RCount)
                 ->  write('You have successfully completed the quest'), nl,
                     random(100, 400, Reward), 
+
+                    changeMoney(Reward), money(Money),
                     format('Recieved ~w gold.', [Reward]),
+                    format('Your current balance is ~w.', [Money]).
+                    
                     retractQuest, 
                     asserta(isQuestActive(0)), 
                     asserta(isSpecialQuest(0)), !;

@@ -25,7 +25,7 @@ getItemByName([H|T], ItemName, Item):-
         ->  getItemByName(T, ItemName, Item1)),
     Item = Item1.
 
-/* Bag functions */
+/* Bag helper functions */
 itemSum([], 0).
 itemSum([H|T], Sum):-
     itemCount(H, Count),
@@ -122,7 +122,7 @@ deleteItem([H|T], Item, NL):-
         ->  deleteItem(T, Item, NL1),
             NL = [H|NL1]).
 
-/* Bag manipulation */
+/* Bag main functions */
 /* How to use: 
     saveToBag(['corn', 10]) 
     saveToBag(['Level 2 fishing rod', 1])
@@ -166,7 +166,8 @@ throwItem:-
     baglist(Bag),
     inventory, nl,
     write('What do you want to throw?'), nl,
-    write('Input number: '), read_integer(Number),
+    write('Input number: '), nl,
+    write('>> '), read_integer(Number),
     itemTotal(Bag, Total),
     (
         Number < 0
@@ -176,7 +177,8 @@ throwItem:-
         Number =< Total
             ->  getItemByIndex(Bag, Number, Item1),
                 itemName(Item1, ItemName),
-                write('How many? '), read_integer(X),
+                write('How many? '), nl,
+                write('>> '), read_integer(X),
                 Item = [ItemName, X],
                 deleteFromBag(Item), !
     ).
