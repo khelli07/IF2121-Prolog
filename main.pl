@@ -1,8 +1,9 @@
 /* Game states */
 :- dynamic(menu_status/1). 
+:- dynamic(day/1).
+:- dynamic(season/1).
 menu_status(game_not_started).
-/* TEMPORARY!!! */
-:- dynamic(season/1). %should be in house.pl
+day(1).
 season(spring). %spring, summer, fall, winter
 
 /* 
@@ -11,6 +12,7 @@ season(spring). %spring, summer, fall, winter
     title_screen: newgame. loadgame.
     outside: { pretty much everything }
     marketplace: buy. sell.
+	house: sleep. writeDiary. readDiary. exit.
     etc. (can't think of more rn)
 */
 
@@ -62,6 +64,7 @@ exit:-
 	nl,nl,fail.
 
 exit:-
+	menu_status(outside),
 	retractall(menu_status(_)),
 	asserta(menu_status(game_not_started)),
 	write('Thanks for Playing!'),
