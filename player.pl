@@ -150,3 +150,24 @@ changeLevelRanching(Change) :-
     New is Old + Change,
     retract(levelranching(Old)),
     assertz(levelranching(New)).
+
+hoelevel(1).
+fishingrodlevel(1).
+
+changeHoeLevel :- 
+    levelplayer(CurrentPlayerLevel),
+    hoelevel(Old),
+    ( 0 =:= CurrentPlayerLevel mod 2
+        ->  NewHoeLevel is Old + 1,
+            retract(hoelevel(Old)),
+            asserta(hoelevel(NewHoeLevel))
+    ).
+
+changeFishingRodLevel :-
+    levelplayer(CurrentPlayerLevel),
+    fishingrodlevel(Old),
+    ( 0 =:= CurrentPlayerLevel mod 2
+        ->  NewFishRodLevel is Old + 1,
+            retract(fishingrodlevel(Old)),
+            asserta(fishingrodlevel(NewFishRodLevel))
+    ).
