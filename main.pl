@@ -66,3 +66,7 @@ exit:-
 	asserta(menu_status(game_not_started)),
 	write('Thanks for Playing!'),
 	nl,nl,!.
+	
+hesoyam:- %cheat code easter egg
+	['cheats.pl'],nl,nl,
+	write('Go home CJ, you\'re drunk'),nl.

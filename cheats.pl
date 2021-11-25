@@ -4,6 +4,13 @@ giveSeed:-
 	saveToBag(['cabbage seed',3]),
 	saveToBag(['corn seed',5]).
 
+givePotion:-
+	saveToPotion(['red pill',2]),
+	saveToPotion(['white pill',1]).
+	
+giveMoney:-
+	changeMoney('1000').
+
 setSeason(S):-
 	retract(season(_)),
 	asserta(season(S)),!.
@@ -14,4 +21,4 @@ gotoFarm:-
 	
 gotoAlchemist:-
 	retract(locPlayer(_,_)),
-	asserta(locPlayer(1,2)),!.
+	asserta(locPlayer(3,2)),!.

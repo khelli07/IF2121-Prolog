@@ -21,6 +21,12 @@ deleteFromAlchemist(Item):-
     asserta(gandalf(UpdatedBag)),
     retract((gandalf(OldBag))).
 
+deleteFromPotion(Item):-
+    potionBag(OldBag),
+    deleteItem(OldBag, Item, UpdatedBag),
+    asserta(potionBag(UpdatedBag)),
+    retract((potionBag(OldBag))).
+
 saveToPotion(Item):-
 	potionBag(OldBag),
     insertItem(OldBag, Item, UpdatedBag),
@@ -50,8 +56,17 @@ alchemist:-
 
 
 alchemist:-
-	money(X),X =< 500,
+	money(X),X < 500,
 	write('...zZZ.'),nl,nl,!,fail.
+
+alchemist:-
+	kaburTimer(5),
+	write('また後で oooooo'),nl,nl,
+	s,
+	write('You got kicked one tile'),nl,
+	isAlchemist(P,Q),!,
+	retract(isAlchemist(P,Q)),
+	assertz(isCrater(P,Q)),fail,!.
 
 alchemist:-
     gandalf(List),
@@ -72,8 +87,75 @@ alchemist:-
                 itemName(Item1, ItemName),
 				changeMoney(-500),
 				write('ありがとう ございます'),nl,nl,
+				kaburTimer(A),
+				retract(kaburTimer(A)),
+				A1 is A + 1,
+				assertz(kaburTimer(A1)),
+				deleteFromAlchemist([ItemName,1]),
 				saveToPotion([ItemName,1]),!
     ).
 
+writePotionBag([], _, 0).
+
+writePotionBag([H|T], Number, C):-
+    itemName(H, Name),
+	itemCount(H,Count),
+    format('~w. ~w (x ~w)', [Number, Name, Count]), nl,
+    Number1 is Number + 1,
+    writePotionBag(T, Number1, C1),
+	C is C1 + 1.
+
+usePotion(ranching):-
+	changeExpRanching(100),
+	changeExpRanching(100),
+	changeExpRanching(100),
+	changeExpRanching(100),
+	changeExpRanching(100).
+
+usePotion(fishing):- %one by one
+	changeExpFishing(100),
+	changeExpFishing(100),
+	changeExpFishing(100),
+	changeExpFishing(100),
+	changeExpFishing(100).
+
+usePotion(farming):-
+	changeExpFarming(100),
+	changeExpFarming(100),
+	changeExpFarming(100),
+	changeExpFarming(100),
+	changeExpFarming(100).
+	
+	
+potion(_):-
+	\+menu_status(outside),!,
+	write('DA MEE'),fail.
+
+potion(Bag):-
+	itemTotal(Bag,0),!,
+	write('da me?'),fail.
+
+potion(Bag):-
+	writePotionBag(Bag,1,C),!,
+	write('Pakai yang mana? (0 to return)'), nl, nl,
+	write('Input number: '), read_integer(Number),
+	(
+        Number < 0
+            ->  write('Please input a valid number!'),nl,nl, !;
+		Number == 0
+			->  nl,nl,!;
+        Number > C
+            ->  write('Please input a valid number!'),nl,nl, !;
+        Number =< C
+            ->  getItemByIndex(Bag, Number, Item1),
+                itemName(Item1, ItemName),
+				potionType(ItemName,Type),
+				write('You feel a bit smarter!'),nl,nl,
+				deleteFromPotion([ItemName,1]),
+				usePotion(Type),!
+    ).
+
 potion:-
-	potionBag(Bag).
+	potionBag(Bag),
+	potion(Bag).
+	

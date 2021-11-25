@@ -12,13 +12,14 @@
 :-dynamic(isCrop/2).
 :-dynamic(isHarvest/2).
 :-dynamic(isAlchemist/2).
+:-dynamic(isCrater/2).
 draw_done(false).
 
 isMarket(15,3).
 isQuest(18,18).
 isHouse(8,12).
 isRanch(9,19).
-isAlchemist(1,2).
+isAlchemist(3,2).
 
 locPlayer(8,13).%starts near house
 
@@ -156,6 +157,9 @@ draw_point(X,Y):-
 draw_point(X,Y):-
 	isAlchemist(X,Y),!,
 	write('?'),!.
+draw_point(X,Y):-
+	isCrater(X,Y),!,
+	write('%'),!.
 draw_point(_,_):-
 	write('.').
 

@@ -29,10 +29,10 @@ createPlayer(Name) :-
     assertz(levelfarming(1)),
     assertz(levelfishing(1)),
     assertz(levelranching(1)),
-    assertz(nextlevelexp(50)),
-    assertz(nextlevelexpfarming(50)),
-    assertz(nextlevelexpfishing(50)),
-    assertz(nextlevelexpranching(50)).
+    assertz(nextlevelexp(100)),
+    assertz(nextlevelexpfarming(100)),
+    assertz(nextlevelexpfishing(100)),
+    assertz(nextlevelexpranching(100)).
 
 createFarmer(Name) :-
     createPlayer(Name),
@@ -93,8 +93,13 @@ changeExpFarming(Change) :-
     nextlevelexpfarming(NextLevelExp),
     ( NewExp >= NextLevelExp -> changeLevelFarming(1),
                                 NewNextLevelExp is NextLevelExp + 50,
+								retract(expfarming(NewExp)),
+								MinusExp is NewExp - NextLevelExp,
+								assertz(expfarming(MinusExp)),
                                 retract(nextlevelexpfarming(NextLevelExp)),
-                                assertz(nextlevelexpfarming(NewNextLevelExp)) ).
+                                assertz(nextlevelexpfarming(NewNextLevelExp));
+	  NewExp < NextLevelExp	 -> ! %biar yes
+	).
 
 changeLevelFarming(Change) :-
     levelfarming(Old),
@@ -110,8 +115,13 @@ changeExpFishing(Change) :-
     nextlevelexpfishing(NextLevelExp),
     ( NewExp >= NextLevelExp -> changeLevelFishing(1),
                                 NewNextLevelExp is NextLevelExp + 50,
+								retract(expfishing(NewExp)),
+								MinusExp is NewExp - NextLevelExp,
+								assertz(expfishing(MinusExp)),
                                 retract(nextlevelexpfishing(NextLevelExp)),
-                                assertz(nextlevelexpfishing(NewNextLevelExp)) ).
+                                assertz(nextlevelexpfishing(NewNextLevelExp));
+	  NewExp < NextLevelExp	 -> !
+	).
 
 changeLevelFishing(Change) :-
     levelfishing(Old),
@@ -127,8 +137,13 @@ changeExpRanching(Change) :-
     nextlevelexpranching(NextLevelExp),
     ( NewExp >= NextLevelExp -> changeLevelRanching(1),
                                 NewNextLevelExp is NextLevelExp + 50,
+								retract(expranching(NewExp)),
+								MinusExp is NewExp - NextLevelExp,
+								assertz(expranching(MinusExp)),
                                 retract(nextlevelexpranching(NextLevelExp)),
-                                assertz(nextlevelexpranching(NewNextLevelExp)) ).
+                                assertz(nextlevelexpranching(NewNextLevelExp)); 
+	  NewExp < NextLevelExp	 -> !
+	).
 
 changeLevelRanching(Change) :-
     levelranching(Old),
