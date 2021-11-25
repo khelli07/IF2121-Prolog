@@ -1,11 +1,32 @@
-/* items.pl */
+:-include('player.pl').
 
-/* Fakta */
+/* items.pl */
 
 /* TOOLS*/
 /* tool(X,Y): X adalah tool milik Y */
 tool('hoe',farmer).
 tool('fishing rod',fisherman).
+
+hoelevel(1).
+fishingrodlevel(1).
+
+changeHoeLevel :- 
+    levelplayer(CurrentPlayerLevel),
+    hoelevel(Old),
+    ( 0 =:= mod(CurrentPlayerLevel, 2)
+        ->  NewHoeLevel is Old + 1,
+            retract(hoelevel(Old)),
+            asserta(hoelevel(NewHoeLevel))
+    ).
+
+changeFishingRodLevel :-
+    levelplayer(CurrentPlayerLevel),
+    fishingrodlevel(Old),
+    ( 0 =:= mod(CurrentPlayerLevel, 2)
+        ->  NewFishRodLevel is Old + 1,
+            retract(fishingrodlevel(Old)),
+            asserta(fishingrodlevel(NewFishRodLevel))
+    ).
 
 /* SEASON */
 /* season(X): X adalah season */
