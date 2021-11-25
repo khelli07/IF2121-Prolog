@@ -12,6 +12,6 @@ gotoFarm:-
 	retract(locPlayer(_,_)),
 	asserta(locPlayer(5,13)),!.
 	
-gotoaAlchemist:-
+gotoAlchemist:-
 	retract(locPlayer(_,_)),
 	asserta(locPlayer(1,2)),!.
