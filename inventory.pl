@@ -47,7 +47,7 @@ totalByType([H|T], TypeName, Total):-
     (Type == TypeName
         -> Total is Count + Total1, !;
     Type \== TypeName
-        -> Total is Total1
+        -> Total is 0 + Total1
     ).
 
 writeInventoryItem([], _).
@@ -159,7 +159,10 @@ inventory:-
     baglist(List),
     itemSum(List, Sum), nl,
     format('Your inventory capacity (~w/100)', [Sum]), nl,
-    writeInventoryItem(List, 1).
+    (Sum == 0
+        ->  write('You currently don\'t have anything.'), !;
+    Sum \== 0
+        ->  writeInventoryItem(List, 1)).
 
 throwItem:-
     isInventory,
@@ -184,23 +187,3 @@ throwItem:-
     ).
     
 
-/* utils */
-charUpper(String, Index, CU):-
-    sub_atom(String, Index, 1, _, Char),
-    lower_upper(Char, CU).
-
-stringUpper(String, Index, UpperStr):-
-    atom_length(String, Length),
-    Index == Length,
-    UpperStr = '', !.
-
-stringUpper(String, Index, UpperStr):-
-    atom_length(String, Length),
-    Index < Length,
-    charUpper(String, Index, CU),
-    Index1 is Index + 1,
-    stringUpper(String, Index1, UpperStr1),
-    atom_concat(CU, UpperStr1, UpperStr).
-
-toUpper(String, Output):-
-    stringUpper(String, 0, Output).

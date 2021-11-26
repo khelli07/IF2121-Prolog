@@ -4,8 +4,10 @@
 :- dynamic(ranch_item/2).
 :- dynamic(isQuestActive/1).
 :- dynamic(isSpecialQuest/1).
+:- dynamic(questAdd/1).
 
 /* Initialize status */
+questAdd(0).
 isQuestActive(0).
 isSpecialQuest(0).
 
@@ -51,9 +53,14 @@ acceptQuestHandler:-
 generateNormalQuest:-
     retractQuest,
 
-    random(1, 10, HCount),
-    random(1, 10, FCount),
-    random(1, 10, RCount),
+    questAdd(X),
+    random(1, 10, HCount1),
+    random(1, 10, FCount1),
+    random(1, 10, RCount1),
+
+    HCount is HCount1 + X,
+    FCount is FCount1 + X,
+    RCount is RCount1 + X, 
 
     asserta(harvest_item('harvest item', HCount)),
     asserta(fish_item('fish', FCount)),
@@ -87,8 +94,8 @@ generateSpecialQuest:-
 /* Quest handler */
 submitQuest:-
     baglist(Bag),
-    inventory, nl,
     isSpecialQuest(T),
+    inventory, nl,
 
     (T == 1
         ->  harvest_item(HarvestName, HQuest), 
@@ -131,17 +138,26 @@ submitQuest:-
             totalByType(Bag, harvest_item, HCount),
             totalByType(Bag, fish_item, FCount),
             totalByType(Bag, ranch_item, RCount),
-            
+
             ((HQuest =< HCount, 
             FQuest =< FCount, 
             RQuest =< RCount)
-                ->  write('You have successfully completed the quest'), nl,
+                ->  write('You have successfully completed the quest!'), nl,
                     random(100, 400, Reward), 
 
                     changeMoney(Reward), money(Money),
-                    format('Recieved ~w gold.', [Reward]),
+                    format('Recieved ~w gold. ', [Reward]),
                     format('Your current balance is ~w.', [Money]),
                     
+                    questAdd(X),
+                    (X =< 70
+                        ->  X1 is X + 5,
+                            retract(questAdd(X)),
+                            asserta(questAdd(X1)), !;
+                    X > 70
+                        ->  X is X
+                    ),
+
                     retractQuest, 
                     asserta(isQuestActive(0)), 
                     asserta(isSpecialQuest(0)), !;

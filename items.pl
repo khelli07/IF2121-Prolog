@@ -328,6 +328,15 @@ itemType('chicken',animal_item).
 itemType('cow',animal_item).
 itemType('sheep',animal_item).
 
+itemType('Level 1 fishing rod', tool_item).
+itemType('Level 1 hoe', tool_item).
+itemType('Level 2 fishing rod', tool_item).
+itemType('Level 2 hoe', tool_item).
+itemType('Level 3 fishing rod', tool_item).
+itemType('Level 3 hoe', tool_item).
+itemType('Level 4 fishing rod', tool_item).
+itemType('Level 4 hoe', tool_item).
+
 /* Seeds */
 itemType('turnip seed',seed).
 itemType('potato seed',seed).
