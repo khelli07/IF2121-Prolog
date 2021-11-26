@@ -33,7 +33,7 @@ doneCrop(Item):-
 /* DIGGING */
 dig:-
 	\+menu_status(outside),!,
-	write('Anda tidak sedang berada di luar!'),
+	helpmsg,
 	nl,nl,fail.
 
 dig:-
@@ -49,6 +49,7 @@ dig:-
 dig:-
 	write('Anda tidak berada di tanah kosong!'),
 	nl,nl,fail.
+
 /* Crop Acessing */
 getH([H|_],H).
 getT([_|T],T).
@@ -141,7 +142,7 @@ getSeedSelection(B,S,Name):-
 
 plant(_,_):-
 	\+menu_status(outside),!,
-	write('Anda tidak sedang berada di luar!'),
+	helpmsg,
 	nl,nl,fail,!.
 
 plant(_,_):-
@@ -149,8 +150,7 @@ plant(_,_):-
 	write('Anda tidak sedang berada di tanah yang sudah digarap!'),
 	nl,nl,fail,!.
 
-plant(S,_):-
-	S == 'winter',
+plant(winter,_):-
 	write('Tanaman tidak dapat ditanam di musim dingin!'),
 	nl,nl,fail,!.
 
@@ -209,7 +209,7 @@ updateCrop:-
 
 harvest(_,_,_):-
 	\+menu_status(outside),
-	write('Anda tidak sedang berada di luar!'),
+	helpmsg,
 	nl,nl,fail,!.
 
 harvest(P,Q,C):-

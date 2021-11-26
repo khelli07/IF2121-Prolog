@@ -37,6 +37,7 @@ start:-
 	['alchemist.pl'],
 	['utilities.pl'],
 	['fairy.pl'],
+	['help.pl'],
 	/* initializaitons */
 	setpagar,
 	retractall(menu_status(_)),

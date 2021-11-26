@@ -3,6 +3,24 @@
 % * -> crop tile (still growing)
 % + -> harvest tile (ready to harvest)
 
+legends:-
+	\+menu_status(outside),
+	helpmsg,fail,!.
+
+legends:-
+	write('----------------- Legends ------------------'),nl,
+	write('| P.        :- player                      |'),nl,
+	write('| -.        :- soil                        |'),nl,
+	write('| =.        :- digged tile                 |'),nl,
+	write('| *.        :- growing crops               |'),nl,
+	write('| +.        :- harvestable crops           |'),nl,
+	write('| o.        :- water                       |'),nl,
+	write('| R.        :- ranch                       |'),nl,
+	write('| Q.        :- quest                       |'),nl,
+	write('| H.        :- your house                  |'),nl,
+	write('| M.        :- market                      |'),nl,
+	write('--------------------------------------------'),nl,!.
+
 :-dynamic(draw_done/1).
 :-dynamic(isAir/2).
 :-dynamic(isPagar/2).
@@ -192,7 +210,7 @@ draw_map(X,Y):-
 /* Commands */
 map:-
 	\+menu_status(outside),!,
-	write('Command tidak dapat diakses!'),
+	helpmsg,
 	nl,nl,fail.
 
 map:-
