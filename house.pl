@@ -123,6 +123,9 @@ exit :-
 toNextDay :- 
 	updateCrop, % updates crop timer, farming.pl
 	rollFairy, % peri tidur, fairy.pl
+    updateNextLay, % hasil animal, ranching.pl
+    updateNextMilk,
+    updateNextWool,
     addDay(1).
 
 /* negatif Add to substract day */
