@@ -49,7 +49,31 @@ start:-
 	write('Ketik \'new.\' untuk memulai game baru'),nl,nl,!.
 	
 
-/* pseudo new game for testing purposes */ 
+/* character creation */ 
+farmer:-
+	menu_status(character_creation),
+	createFarmer(player),
+	retract(menu_status(character_creation)),
+	assertz(menu_status(outside)),
+	write('Anda memilih menjadi Farmer!'),nl,nl,
+	help,!.
+
+fisherman:-
+	menu_status(character_creation),
+	createFisherman(player),
+	retract(menu_status(character_creation)),
+	assertz(menu_status(outside)),
+	write('Anda memilih menjadi Fisherman!'),nl,nl,
+	help,!.
+	
+rancher:-
+	menu_status(character_creation),
+	createRancher(player),
+	retract(menu_status(character_creation)),
+	assertz(menu_status(outside)),
+	write('Anda memilih menjadi Rancher!'),nl,nl,
+	help,!.
+	
 new:-
 	\+menu_status(title_screen),!,
 	write('Tidak dapat memulai game baru!'),
@@ -57,8 +81,9 @@ new:-
 
 new:-
 	retract(menu_status(title_screen)),
-	asserta(menu_status(outside)),
-	write('Game baru sukses dibuat'),
+	asserta(menu_status(character_creation)),
+	write('Silahkan pilih role!'),nl,nl,
+	help,
 	nl,nl,!.
 
 exit:-

@@ -10,7 +10,7 @@ kaburTimer(0).
 potionType('red pill',farming).
 potionType('blue pill',fishing).
 potionType('white pill',ranching).
-% Potion Price 500G, gives 500 XP
+% Potion Price 500G, gives 400 XP
 
 gandalf([['red pill',3],['blue pill',3],['white pill',3]]).
 potionBag([]).
@@ -105,22 +105,28 @@ writePotionBag([H|T], Number, C):-
     writePotionBag(T, Number1, C1),
 	C is C1 + 1.
 
+addToPlayer:-
+	changeExpPlayer(50),
+	changeExpPlayer(50),
+	changeExpPlayer(50),
+	changeExpPlayer(50),!.
+
 usePotion(ranching):-
-	changeExpRanching(100),
+	addToPlayer,
 	changeExpRanching(100),
 	changeExpRanching(100),
 	changeExpRanching(100),
 	changeExpRanching(100).
 
 usePotion(fishing):- %one by one
-	changeExpFishing(100),
+	addToPlayer,
 	changeExpFishing(100),
 	changeExpFishing(100),
 	changeExpFishing(100),
 	changeExpFishing(100).
 
 usePotion(farming):-
-	changeExpFarming(100),
+	addToPlayer,
 	changeExpFarming(100),
 	changeExpFarming(100),
 	changeExpFarming(100),

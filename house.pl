@@ -2,6 +2,8 @@
 % :- include('utilities.pl').
 % :- include('player.pl').
 % :- include('map.pl').
+% :- include('farming.pl'). %for updateCrop in toNextDay
+% :- include('fairy.pl'). %for rollFairy in toNextDay
 :- discontiguous(exit/0).
 
 seasons([spring, summer, fall, winter]).

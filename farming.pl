@@ -215,10 +215,12 @@ updateCrop:-
 
 harvestExp:-
 	specialty(farmer),
-	changeExpFarming(8),!.
+	changeExpFarming(8),
+	changeExpPlayer(4),!.
 
 harvestExp:-
-	changeExpFarming(4),!.
+	changeExpFarming(4),
+	changeExpPlayer(2),!.
 
 harvestCount(X):-
 	levelfarming(L),

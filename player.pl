@@ -49,14 +49,14 @@ createRancher(Name) :-
 status :-   write('Your status:'), nl,
             write('Job: '), specialty(A), write(A), nl,
             write('Level: '), levelplayer(B), write(B), nl,
-            write('Exp: '), expplayer(C), write(C), nl,
+            expplayer(C), nextlevelexp(NC), format('Exp: ~w/~w',[C,NC]), nl,
             write('Money: '), money(Money), write(Money), write(' gold'), nl, nl,
             write('Level farming: '), levelfarming(D), write(D), nl,
-            write('Exp farming: '), expfarming(E), write(E), nl,
+            expfarming(E), nextlevelexpfarming(NE), format('Exp farming: ~w/~w',[E,NE]), nl,
             write('Level fishing: '), levelfishing(F), write(F), nl,
-            write('Exp fishing: '), expfishing(G), write(G), nl,
+            expfishing(G), nextlevelexpfishing(NG), format('Exp fishing: ~w/~w',[G,NG]), nl,
             write('Level ranching: '), levelranching(H), write(H), nl,
-            write('Exp ranching: '), expranching(I), write(I), nl.
+            expranching(I), nextlevelexpranching(NI), format('Exp ranching: ~w/~w',[I,NI]), nl,!.
 
 /* Untuk semua peredikat change berlaku penambahan, jadi Change adalah perubahan, bukan nilai baru yang menggantikan nilai lama */
 /* Mengubah banyak uang, gunakan negatif untuk mengurangi */
@@ -75,8 +75,13 @@ changeExpPlayer(Change) :-
     nextlevelexp(NextLevelExp),
     ( NewExp >= NextLevelExp -> changeLevelPlayer(1),
                                 NewNextLevelExp is NextLevelExp + 50,
+								retract(expplayer(NewExp)),
+								MinusExp is NewExp - NextLevelExp,
+								assertz(expplayer(MinusExp)),
                                 retract(nextlevelexp(NextLevelExp)),
-                                assertz(nextlevelexp(NewNextLevelExp)) ).
+                                assertz(nextlevelexp(NewNextLevelExp));
+	  NewExp < NextLevelExp	 -> ! %biar yes
+	).
 
 changeLevelPlayer(Change) :-
     levelplayer(Old),
