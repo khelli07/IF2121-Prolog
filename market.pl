@@ -15,7 +15,7 @@ getMarketList(LF):-
     findall(Animal, animal(Animal), L1),
     append(L, L1, LF1),
     
-    expfarming(LH),
+    levelfarming(LH),
     (LH < 5
         ->  LH1 is LH + 48,
             append("Level ", [LH1], TMP1),
@@ -54,7 +54,7 @@ market:-
 
 buy:- 
     isMarket,
-    expfishing(LR),
+    levelfishing(LR),
     (LR < 5
         ->  LR1 is LR + 48,
             append("Level ", [LR1], TMP1),

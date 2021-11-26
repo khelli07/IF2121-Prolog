@@ -32,3 +32,24 @@ read_atom(Atom) :-
 read_num(Number) :-
 	read_str(String),
 	number_codes(Number, String).
+
+/* Convert string to uppercase */
+charUpper(String, Index, CU):-
+    sub_atom(String, Index, 1, _, Char),
+    lower_upper(Char, CU).
+
+stringUpper(String, Index, UpperStr):-
+    atom_length(String, Length),
+    Index == Length,
+    UpperStr = '', !.
+
+stringUpper(String, Index, UpperStr):-
+    atom_length(String, Length),
+    Index < Length,
+    charUpper(String, Index, CU),
+    Index1 is Index + 1,
+    stringUpper(String, Index1, UpperStr1),
+    atom_concat(CU, UpperStr1, UpperStr).
+
+toUpper(String, Output):-
+    stringUpper(String, 0, Output).
