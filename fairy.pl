@@ -21,6 +21,8 @@ fairy:-
 			-> write('EHE TE NANDAYO'),nl, assertz(locPlayer(P,Q)),!;
 		Y > 19
 			-> write('EHE TE NANDAYO'),nl, assertz(locPlayer(P,Q)),!;
+		isAir(P,Q)
+			-> write('YOU CANT SWIM PEKO!'),nl, assertz(locPlayer(P,Q)),!;
         X > 0
             -> write('Oghey Peko!'), nl,nl,
 			   assertz(locPlayer(X,Y)), !

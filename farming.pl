@@ -138,7 +138,12 @@ getSeedSelection(B,S,Name):-
         Number =< Total
             ->  getSeed(SeedList,Number,SeedName),!, Name = SeedName,!
     ).
-	
+
+hoeEffect(D1,D):-
+	hoelevel(X),
+	D2 is D1-X,
+	max(D2,1,D3),
+	D is D3,!.
 
 plant(_,_):-
 	\+menu_status(outside),!,
@@ -162,7 +167,8 @@ plant(S,B):-
 plant(S,B):-
 	getSeedSelection(B,S,Name),!,
 	locPlayer(P,Q),!,
-	growTime(Name,D),!, % D needs to be recalibrated
+	growTime(Name,D1),!, % D needs to be recalibrated
+	hoeEffect(D1,D),
 	R is Q-1,
 	addCrop([P,Q,D,Name]),
 	move(P,R),!,
@@ -207,6 +213,22 @@ updateCrop:-
 
 /* HARVEST TIME */
 
+harvestExp:-
+	specialty(farmer),
+	changeExpFarming(8),!.
+
+harvestExp:-
+	changeExpFarming(4),!.
+
+harvestCount(X):-
+	levelfarming(L),
+	random(0,50,Y),
+	(
+		Y == L -> X is 3;
+		Y < L -> X is 2;
+		Y > L -> X is 1,!
+	),!.
+
 harvest(_,_,_):-
 	\+menu_status(outside),
 	helpmsg,
@@ -222,7 +244,7 @@ harvest(P,Q,C):-
 	format('~w akan tumbuh dalam ~w hari',[N1,D]),
 	nl,nl,!.
 
-harvest(P,Q,C):- % TODO: ADD XP AND ADD YIELDS
+harvest(P,Q,C):-
 	isHarvest(P,Q),
 	findCrop(C,P,Q,C1),
 	doneCrop(C1),
@@ -230,8 +252,10 @@ harvest(P,Q,C):- % TODO: ADD XP AND ADD YIELDS
 	asserta(isSoil(P,Q)),
 	nameCrop(C1,N),
 	growTo(N,N1),
-	format('~w berhasil dipanen',[N1]),nl,nl,
-	saveToBag([N1,1]),!.
+	harvestCount(Count),
+	format('~w berhasil dipanen!',[N1]),nl,nl,
+	saveToBag([N1,Count]),
+	harvestExp,!.
 
 harvest:-
 	crop(C),
