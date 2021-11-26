@@ -44,7 +44,7 @@ writePotions([H|T], Number, C):-
 
 alchemist:-
 	\+menu_status(outside),!,
-	write('Anda tidak sedang berada di luar!'),
+	write('YAMETE!'),
 	nl,nl,fail.
 
 

@@ -1,7 +1,7 @@
 % additional legends:
 % . -> path tile (not soil)
-% C -> crop tile (still growing)
-% H -> harvest tile (ready to harvest)
+% * -> crop tile (still growing)
+% + -> harvest tile (ready to harvest)
 
 :-dynamic(draw_done/1).
 :-dynamic(isAir/2).
@@ -192,7 +192,7 @@ draw_map(X,Y):-
 /* Commands */
 map:-
 	\+menu_status(outside),!,
-	write('Anda tidak sedang berada di luar'),
+	write('Command tidak dapat diakses!'),
 	nl,nl,fail.
 
 map:-

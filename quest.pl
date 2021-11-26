@@ -110,7 +110,7 @@ submitQuest:-
                     
                     changeMoney(Reward), money(Money),
                     format('Recieved ~w gold.', [Reward]),
-                    format('Your current balance is ~w.', [Money]).
+                    format('Your current balance is ~w.', [Money]),
                     
                     retractQuest, 
                     asserta(isQuestActive(0)), 
@@ -140,7 +140,7 @@ submitQuest:-
 
                     changeMoney(Reward), money(Money),
                     format('Recieved ~w gold.', [Reward]),
-                    format('Your current balance is ~w.', [Money]).
+                    format('Your current balance is ~w.', [Money]),
                     
                     retractQuest, 
                     asserta(isQuestActive(0)), 

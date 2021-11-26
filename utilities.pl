@@ -6,7 +6,7 @@ max(A,B,B):-
 	A=<B,!.
 
 % Get I th element of list, index from 0
-get_list_element([], I, E) :- fail, !.
+get_list_element([], _, _) :- fail, !.
 get_list_element(L, 0, E) :-
 	[H|_] = L,
 	E = H, !.

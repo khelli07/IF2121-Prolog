@@ -54,7 +54,6 @@ market:-
 
 buy:- 
     isMarket,
-    season(Season),
     expfishing(LR),
     (LR < 5
         ->  LR1 is LR + 48,
@@ -125,12 +124,3 @@ sell:-
 exitMarket:-
     retractall(menu_status(_)),
     asserta(menu_status(outside)).
-
-/* For debugging */
-addBag:-
-    baglist(T),
-    saveToBag(['corn', 10]),
-    saveToBag(['carp', 8]),
-    saveToBag(['egg', 12]), 
-    saveToBag(['tomato seed', 5]),
-    saveToBag(['Level 1 hoe', 1]).

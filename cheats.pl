@@ -7,6 +7,13 @@ giveSeed:-
 givePotion:-
 	saveToPotion(['red pill',2]),
 	saveToPotion(['white pill',1]).
+
+addBag:-
+    saveToBag(['corn', 10]),
+    saveToBag(['carp', 8]),
+    saveToBag(['egg', 12]), 
+    saveToBag(['tomato seed', 5]),
+    saveToBag(['Level 1 hoe', 1]).
 	
 giveMoney:-
 	changeMoney('1000').

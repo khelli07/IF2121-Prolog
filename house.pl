@@ -119,6 +119,8 @@ exit :-
     assertz(menu_status(outside)).
 
 toNextDay :- 
+	updateCrop, % updates crop timer, farming.pl
+	rollFairy, % peri tidur, fairy.pl
     addDay(1).
 
 /* negatif Add to substract day */
