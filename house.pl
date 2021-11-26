@@ -4,7 +4,6 @@
 % :- include('map.pl').
 % :- include('farming.pl'). %for updateCrop in toNextDay
 % :- include('fairy.pl'). %for rollFairy in toNextDay
-:- discontiguous(exit/0).
 
 seasons([spring, summer, fall, winter]).
 
@@ -13,10 +12,10 @@ house :-
     retract(menu_status(outside)),
     assertz(menu_status(house)),
     write('Welcome to house'), nl,
-    write('- sleep'), nl,
-    write('- writeDiary'), nl,
-    write('- readDiary'), nl,
-    write('- exit'), nl.
+    write('- sleep.'), nl,
+    write('- writeDiary.'), nl,
+    write('- readDiary.'), nl,
+    write('- exit.'), nl.
 
 sleep :-
     menu_status(house),
@@ -24,7 +23,12 @@ sleep :-
     write('You went to sleep'), nl, nl,
     day(D), season(S),
     write('Day '), write(D),
-    write(' Season '), write(S), nl, nl, !.
+    write(' Season '), write(S), nl, nl,
+    write('house'), nl,
+    write('- sleep.'), nl,
+    write('- writeDiary.'), nl,
+    write('- readDiary.'), nl,
+    write('- exit.'), nl, !.
 
 sleep :- 
     write('You don''t have access to this function! Go to house').
@@ -55,13 +59,19 @@ writeDiary :-
     nextlevelexpfishing(L), write(Stream, 'nextlevelexpfishing('),write(Stream, L), write(Stream, ').'), nl(Stream),
     nextlevelexpranching(M), write(Stream, 'nextlevelexpranching('),write(Stream, M), write(Stream, ').'), nl(Stream),
 
-    locPlayer(N,O), write(Stream, 'locPlayer('),write(Stream, N), write(Stream, ','), write(Stream, O), write(Stream, ').'), nl(Stream).
+    locPlayer(N,O), write(Stream, 'locPlayer('),write(Stream, N), write(Stream, ','), write(Stream, O), write(Stream, ').'), nl(Stream),
     forall(isDiggedTile(X,Y), saveDiggedTile(Stream, X, Y)),
     forall(isCrop(X,Y), saveCrop(Stream, X, Y)),
     forall(isHarvest(X,Y), saveHarvest(Stream, X, Y)),
     close(Stream),
-    assertz(menu_status(saving)),
-    retract(menu_status(house)). 
+    retract(menu_status(saving)),
+    assertz(menu_status(house)), 
+    write('Diary succesfully saved'), nl,
+    !.
+
+writeDiary :-
+    \+ (menu_status(house)),
+    write('Can only write diary on house'), nl.
 
 saveDiggedTile(Stream, X, Y) :-
     menu_status(saving),
@@ -79,13 +89,14 @@ saveHarvest(Stream, X, Y) :-
 readDiary :-
     % not yet tested
     menu_status(house),
-    write('Choose your saved diary (Enter number, ex: 1)'), nl,
+    write('Choose your saved diary (Enter number, ex: 1, without dot (.) EOL)'), nl,
 
     directory_files('./saved_files', L),
     [_|[_|FL]] = L,
-    displayFilesNameList(FL),
+    displayFilesNameList(FL, 1),
     read_num(Num),
-    get_list_element(FL,Num,Res),
+    Num1 is Num - 1,
+    get_list_element(FL,Num1,Res),
     retractall(player(_)),
     retractall(expplayer(_)),
     retractall(expfarming(_)),
@@ -103,22 +114,24 @@ readDiary :-
     retractall(locPlayer(_,_)),
     retractall(isDiggedTile(_,_)),
     retractall(isCrop(_,_)),
-    retractall(isHarvest(_,_))
-    consult(Res),
-    write('Reading diary succesful'), nl.
+    retractall(isHarvest(_,_)),
+    concat('./saved_files/', Res, DirFileName),
+    consult(DirFileName),
+    write('Reading diary succesful'), nl,
+    status, nl,
+    write('house'), nl,
+    write('- sleep.'), nl,
+    write('- writeDiary.'), nl,
+    write('- readDiary.'), nl,
+    write('- exit.'), nl. 
 
-displayFilesNameList([]) :- !.
-displayFilesNameList(L) :-
+displayFilesNameList([], _) :- !.
+displayFilesNameList(L, IDX) :-
     [H|T] = L,
+    write(IDX), write('. '),
     write(H), nl,
-    displayFilesNameList(T).
-
-
-exit :- 
-    menu_status(house),
-    write('You go to outside'), nl, nl,
-    retract(menu_status(house)),
-    assertz(menu_status(outside)).
+    IDX1 is IDX + 1,
+    displayFilesNameList(T, IDX1).
 
 toNextDay :- 
 	updateCrop, % updates crop timer, farming.pl

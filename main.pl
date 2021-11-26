@@ -15,6 +15,7 @@ season(spring). %spring, summer, fall, winter
 	house: sleep. writeDiary. readDiary. exit.
     etc. (can't think of more rn)
 */
+:- write('Run "start." command to start playing').
 
 start:-
 	\+menu_status(game_not_started),!,
@@ -32,6 +33,7 @@ start:-
 	['player.pl'],
 	['inventory.pl'],
 	['quest.pl'],
+	['house.pl'],
 	['market.pl'],
 	['farming.pl'],
 	['alchemist.pl'],
@@ -90,6 +92,12 @@ exit:-
 	menu_status(game_not_started),!,
 	write('Permainan belum dimulai!'),
 	nl,nl,fail.
+
+exit :- 
+    menu_status(house),
+    write('You go to outside'), nl, nl,
+    retract(menu_status(house)),
+    assertz(menu_status(outside)).
 
 exit:-
 	menu_status(outside),

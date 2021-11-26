@@ -47,6 +47,7 @@ createRancher(Name) :-
     assertz(specialty(rancher)).
 
 status :-   write('Your status:'), nl,
+            day(DD), season(S), format('Day ~w Season ~w', [DD,S]), nl,
             write('Job: '), specialty(A), write(A), nl,
             write('Level: '), levelplayer(B), write(B), nl,
             expplayer(C), nextlevelexp(NC), format('Exp: ~w/~w',[C,NC]), nl,
