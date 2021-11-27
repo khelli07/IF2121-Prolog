@@ -210,11 +210,44 @@ increaseSheepAffection:-
     retract(sheepAffection(Old)),
     asserta(sheepAffection(New)).
 
+sheep:- 
+    \+menu_status(outside),
+    write('Anda sedang tidak berada di luar'),!.
+
+sheep:- 
+    locPlayer(X,Y),
+    isRanch(X1,Y1),
+    X =\= X1,
+    Y =\= Y1,
+    write('Anda sedang tidak berada di ranch!'),!.
+
 sheep:-
     wool.
 
+cow:- 
+    \+menu_status(outside),
+    write('Anda sedang tidak berada di luar'),!.
+
+cow:- 
+    locPlayer(X,Y),
+    isRanch(X1,Y1),
+    X =\= X1,
+    Y =\= Y1,
+    write('Anda sedang tidak berada di ranch!'),!.
+
 cow:-
     milk.
+
+chicken:- 
+    \+menu_status(outside),
+    write('Anda sedang tidak berada di luar'),!.
+
+chicken:- 
+    locPlayer(X,Y),
+    isRanch(X1,Y1),
+    X =\= X1,
+    Y =\= Y1,
+    write('Anda sedang tidak berada di ranch!'),!.
 
 chicken:-
     lay.
@@ -234,8 +267,8 @@ ranch:-
 ranch:- 
     locPlayer(X,Y),
     isRanch(X1,Y1),
-    X =\= Y,
-    X1 =\= Y1,
+    X =\= X1,
+    Y =\= Y1,
     write('Anda sedang tidak berada di ranch!'),!.
 
 ranch:-

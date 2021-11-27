@@ -154,8 +154,18 @@ changeExpRanching(Change) :-
 changeLevelRanching(Change) :-
     levelranching(Old),
     New is Old + Change,
-    retract(levelranching(Old)),
-    assertz(levelranching(New)).
+    Remainder is New mod 10,
+    ( Remainder =\= 0 -> retract(levelranching(Old)),
+                         assertz(levelranching(New)),!;
+      Remainder =:= 0 -> increaseEggProd,
+                         decreaseLayTime,
+                         increaseMilkProd,
+                         decreaseMilkTime,
+                         increaseWoolProd,
+                         decreaseWoolTime,
+                         retract(levelranching(Old)),
+                         assertz(levelranching(New))
+    ).
 
 hoelevel(1).
 fishingrodlevel(1).
