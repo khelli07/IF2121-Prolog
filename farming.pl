@@ -139,8 +139,21 @@ getSeedSelection(B,S,Name):-
             ->  getSeed(SeedList,Number,SeedName),!, Name = SeedName,!
     ).
 
-hoeEffect(D1,D):-
-	hoelevel(X),
+hoeLevel('Level 1 hoe', 1).
+hoeLevel('Level 2 hoe', 2).
+hoeLevel('Level 3 hoe', 3).
+hoeLevel('Level 4 hoe', 4).
+hoeLevel(_,0).
+
+getHoeLevel([],0).
+getHoeLevel([H|T],L):-	
+	itemName(H,Name),
+	hoeLevel(Name,L1),
+	getHoeLevel(T,L2),!,
+	max(L1,L2,L3),
+	L is L3,!.
+	
+hoeEffect(X,D1,D):-
 	D2 is D1-X,
 	max(D2,1,D3),
 	D is D3,!.
@@ -168,7 +181,8 @@ plant(S,B):-
 	getSeedSelection(B,S,Name),!,
 	locPlayer(P,Q),!,
 	growTime(Name,D1),!, % D needs to be recalibrated
-	hoeEffect(D1,D),
+	getHoeLevel(B,L),
+	hoeEffect(L,D1,D),
 	R is Q-1,
 	addCrop([P,Q,D,Name]),
 	move(P,R),!,

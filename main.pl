@@ -11,7 +11,7 @@ menu_status(game_not_started).
 	house: sleep. writeDiary. readDiary. exit.
     etc. (can't think of more rn)
 */
-:- write('Run "start." command to start playing').
+write('Run \"start.\" command to start playing').
 
 start:-
 	\+menu_status(game_not_started),!,
