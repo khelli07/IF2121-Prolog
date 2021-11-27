@@ -10,7 +10,7 @@ kaburTimer(0).
 potionType('red pill',farming).
 potionType('blue pill',fishing).
 potionType('white pill',ranching).
-% Potion Price 500G, gives 400 XP
+% Potion Price 1000G, gives 100 XP
 
 gandalf([['red pill',3],['blue pill',3],['white pill',3]]).
 potionBag([]).
@@ -37,7 +37,7 @@ writePotions([], _, 0).
 
 writePotions([H|T], Number, C):-
     itemName(H, Name),
-    format('~w. ~w: 500 G', [Number, Name]), nl,
+    format('~w. ~w: 1000 G', [Number, Name]), nl,
     Number1 is Number + 1,
     writePotions(T, Number1, C1),
 	C is C1 + 1.
@@ -56,7 +56,7 @@ alchemist:-
 
 
 alchemist:-
-	money(X),X < 500,
+	money(X),X < 1000,
 	write('...zZZ.'),nl,nl,!,fail.
 
 alchemist:-
@@ -85,7 +85,7 @@ alchemist:-
         Number =< C
             ->  getItemByIndex(List, Number, Item1),
                 itemName(Item1, ItemName),
-				changeMoney(-500),
+				changeMoney(-1000),
 				write('ありがとう ございます'),nl,nl,
 				kaburTimer(A),
 				retract(kaburTimer(A)),
@@ -106,30 +106,18 @@ writePotionBag([H|T], Number, C):-
 	C is C1 + 1.
 
 addToPlayer:-
-	changeExpPlayer(50),
-	changeExpPlayer(50),
-	changeExpPlayer(50),
 	changeExpPlayer(50),!.
 
 usePotion(ranching):-
 	addToPlayer,
-	changeExpRanching(100),
-	changeExpRanching(100),
-	changeExpRanching(100),
 	changeExpRanching(100).
 
 usePotion(fishing):- %one by one
 	addToPlayer,
-	changeExpFishing(100),
-	changeExpFishing(100),
-	changeExpFishing(100),
 	changeExpFishing(100).
 
 usePotion(farming):-
 	addToPlayer,
-	changeExpFarming(100),
-	changeExpFarming(100),
-	changeExpFarming(100),
 	changeExpFarming(100).
 	
 	

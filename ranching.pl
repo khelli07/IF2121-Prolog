@@ -39,64 +39,25 @@ nextLay(0).
 nextMilk(0).
 nextWool(0).
 
- /*
-changeLayTime:-
-    season(CurrSeason),
-    seasons(SeasonList),
-    layTime(CurrNext,CurrSeason),
-    day(Day),
-    NewNext is Day + 1,
-    (
-      NewNext > 28, \+season(winter)
-      -> NewNext1 is NewNext mod 28,
-         nth(Idx,SeasonList,CurrSeason),
-         Idx1 is Idx + 1,
-         nth(Idx1,SeasonList,NextSeason),
-         retract(layTime(CurrNext,CurrSeason)),
-         asserta(layTime(NewNext1,NextSeason));
-      NewNext =< 28
-      -> retract(layTime(CurrNext,CurrSeason)),
-         asserta(layTime(NewNext,CurrSeason)),!
-    ).
+/* Adjust Next Production */
 
-changeMilkTime:-
-    season(CurrSeason),
-    seasons(SeasonList),
-    milkTime(CurrNext,CurrSeason),
-    day(Day),
-    NewNext is Day + 1,
-    (
-      NewNext > 28, \+season(winter)
-      -> NewNext1 is NewNext mod 28,
-         nth(Idx,SeasonList,CurrSeason),
-         Idx1 is Idx + 1,
-         nth(Idx1,SeasonList,NextSeason),
-         retract(milkTime(CurrNext,CurrSeason)),
-         asserta(milkTime(NewNext1,NextSeason));
-      NewNext =< 28
-      -> retract(milkTime(CurrNext,CurrSeason)),
-         asserta(milkTime(NewNext,CurrSeason)),!
-    ).
+resetNextLay:-
+    nextLay(Current),
+    New is 0,
+    retract(nextLay(Current)),
+    asserta(nextLay(New)).
 
-changeWoolTime:-
-    season(CurrSeason),
-    seasons(SeasonList),
-    nextWool(CurrNext,CurrSeason),
-    day(Day),
-    NewNext is Day + 1,
-    (
-      NewNext > 28, \+season(winter)
-      -> NewNext1 is NewNext mod 28,
-         nth(Idx,SeasonList,CurrSeason),
-         Idx1 is Idx + 1,
-         nth(Idx1,SeasonList,NextSeason),
-         retract(nextWool(CurrNext,CurrSeason)),
-         asserta(nextWool(NewNext1,NextSeason));
-      NewNext =< 28
-      -> retract(nextWool(CurrNext,CurrSeason)),
-         asserta(nextWool(NewNext,CurrSeason)),!
-    ).
- */
+resetNextMilk:-
+    nextMilk(Current),
+    New is 0,
+    retract(nextMilk(Current)),
+    asserta(nextMilk(New)).
+
+resetNextWool:-
+    nextWool(Current),
+    New is 0,
+    retract(nextWool(Current)),
+    asserta(nextWool(New)).
 
 updateNextLay:-
     nextLay(Current),
@@ -188,7 +149,7 @@ decreaseWoolTime:- % minimal 4 hari
 
 /* Increase Animals Affection Level */
 
-/* Setiap animal dikunjungi, stats bertambah 2 */
+/* Setiap animal mengahasilkan produksinya, stats bertambah 2 */
 increaseChickenAffection:-
     specialty(rancher),
     chickenAffection(Old),
@@ -210,11 +171,46 @@ increaseSheepAffection:-
     retract(sheepAffection(Old)),
     asserta(sheepAffection(New)).
 
+/* Animal Rules */
+
+sheep:- 
+    \+menu_status(outside),
+    write('Anda sedang tidak berada di luar'),!.
+
+sheep:- 
+    locPlayer(X,Y),
+    isRanch(X1,Y1),
+    X =\= X1,
+    Y =\= Y1,
+    write('Anda sedang tidak berada di ranch!'),!.
+
 sheep:-
     wool.
 
+cow:- 
+    \+menu_status(outside),
+    write('Anda sedang tidak berada di luar'),!.
+
+cow:- 
+    locPlayer(X,Y),
+    isRanch(X1,Y1),
+    X =\= X1,
+    Y =\= Y1,
+    write('Anda sedang tidak berada di ranch!'),!.
+
 cow:-
     milk.
+
+chicken:- 
+    \+menu_status(outside),
+    write('Anda sedang tidak berada di luar'),!.
+
+chicken:- 
+    locPlayer(X,Y),
+    isRanch(X1,Y1),
+    X =\= X1,
+    Y =\= Y1,
+    write('Anda sedang tidak berada di ranch!'),!.
 
 chicken:-
     lay.
@@ -234,8 +230,8 @@ ranch:-
 ranch:- 
     locPlayer(X,Y),
     isRanch(X1,Y1),
-    X =\= Y,
-    X1 =\= Y1,
+    X =\= X1,
+    Y =\= Y1,
     write('Anda sedang tidak berada di ranch!'),!.
 
 ranch:-
@@ -244,25 +240,27 @@ ranch:-
     writeAnimals(Animals, 1),nl,
     write('What do you want to do?'),nl. 
 
+/* ketika animal menghasilkan produksi atau belum */
+
 lay:-
     chickenAffection(AffectionLevel),
     AffectionLevel =\= 0,
     Y is AffectionLevel mod 20,
     Y =:= 0,
     levelranching(LevelRanching),
-    GoldenExp is LevelRanching * 15,
+    GoldenExp is LevelRanching * 10,
     saveToBag(['golden egg',1]),
     write('Your chicken lays a golden egg!'),nl,
     write('You got special item: Golden Egg!'),nl,
     changeExpRanching(GoldenExp),
-    format('You gained ~w ranching exp!',[GoldenExp]),nl,
+    format('You gained ~w ranching exp!',[GoldenExp]),nl,nl,
     increaseChickenAffection,
     write('You gained affection from your chicken!'),nl,!.
 
 lay:-
     layTime(LayTime),
-    day(Day),
-    LayTime =:= Day,
+    nextLay(Day),
+    Day >= LayTime,
     eggProd(Prod),
     chickenCount(Chickens),
     Eggs is Prod * Chickens,
@@ -271,7 +269,8 @@ lay:-
     format('Your chicken lays ~w eggs.',[Eggs]),nl,
     format('You got ~w eggs!',[Eggs]),nl,
     changeExpRanching(Exp),
-    format('You gained ~w ranching exp!',[Exp]),nl,
+    format('You gained ~w ranching exp!',[Exp]),nl,nl,
+    resetNextLay,
     increaseChickenAffection,
     write('You gained affection from your chickens!'),nl,!.
 
@@ -285,7 +284,7 @@ milk:-
     Y is AffectionLevel mod 20,
     Y =:= 0,
     levelranching(LevelRanching),
-    GoldenExp is LevelRanching * 20,
+    GoldenExp is LevelRanching * 15,
     saveToBag(['golden milk',1]),
     write('Your cow produces some golden milk!'),nl,
     write('You got special item: Golden Milk!'),nl,
@@ -296,8 +295,8 @@ milk:-
 
 milk:-
     milkTime(MilkTime),
-    day(Day),
-    MilkTime =:= Day,
+    nextMilk(Day),
+    Day >= MilkTime,
     milkProd(Prod),
     cowCount(Cows),
     Milk is Prod * Cows,
@@ -306,7 +305,8 @@ milk:-
     format('Your cow produces ~w bootle of milk.',[Milk]),nl,
     format('You got ~w bottle of milk!',[Milk]),nl,
     changeExpRanching(Exp),
-    format('You gained ~w ranching exp!',[Exp]),nl,
+    format('You gained ~w ranching exp!',[Exp]),nl,nl,
+    resetNextMilk,
     increaseCowAffection,
     write('You gained affection from your cows!'),nl,!.
 
@@ -320,7 +320,7 @@ wool:-
     Y is AffectionLevel mod 20,
     Y =:= 0,
     levelranching(LevelRanching),
-    GoldenExp is LevelRanching * 25,
+    GoldenExp is LevelRanching * 20,
     saveToBag(['golden wool',1]),
     write('Your sheep grows golden fleece!'),nl,
     write('You got special item: Golden Wool!'),nl,
@@ -331,8 +331,8 @@ wool:-
 
 wool:-
     woolTime(WoolTime),
-    day(Day),
-    WoolTime =:= Day,
+    nextWool(Day),
+    Day >= WoolTime,
     woolProd(Prod),
     sheepCount(Sheep),
     Wool is Prod * Sheep,
@@ -341,7 +341,8 @@ wool:-
     format('Your sheep produces ~w bag of wool.',[Wool]),nl,
     format('You got ~w bag of wool!',[Wool]),nl,
     changeExpRanching(Exp),
-    format('You gained ~w ranching exp!',[Exp]),nl,
+    format('You gained ~w ranching exp!',[Exp]),nl,nl,
+    resetNextWool,
     increaseSheepAffection,
     write('You gained affection from your sheep!'),nl,!.
 
