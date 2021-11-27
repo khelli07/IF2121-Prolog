@@ -4,11 +4,15 @@
 % :- include('map.pl').
 % :- include('farming.pl'). %for updateCrop in toNextDay
 % :- include('fairy.pl'). %for rollFairy in toNextDay
-
+:- dynamic(day/1).
+:- dynamic(season/1).
+day(1).
+season(spring).
 seasons([spring, summer, fall, winter]).
 
 house :- 
     menu_status(outside),
+    isOnHouse,
     retract(menu_status(outside)),
     assertz(menu_status(house)),
     write('Welcome to house'), nl,
@@ -32,106 +36,6 @@ sleep :-
 
 sleep :- 
     write('You don''t have access to this function! Go to house').
-
-
-writeDiary :-
-    menu_status(house),
-    retract(menu_status(house)),
-    assertz(menu_status(saving)),
-    write('Enter save name (ex: Firstday, no file extension and EOL dot (.) needed)'),nl,
-    read_atom(Name),
-    concat(Name, '.pl', FileName),
-    concat('./saved_files/', FileName, DirFileName),
-    open(DirFileName, write, Stream),
-
-    % TO DO: Menambahkan lebih banyak state
-    player(A), write(Stream, 'player('),write(Stream, A), write(Stream, ').'), nl(Stream),
-    expplayer(B), write(Stream, 'expplayer('),write(Stream, B), write(Stream, ').'), nl(Stream),
-    expfarming(C), write(Stream, 'expfarming('),write(Stream, C), write(Stream, ').'), nl(Stream),
-    expfishing(D), write(Stream, 'expfishing('),write(Stream, D), write(Stream, ').'), nl(Stream),
-    expranching(E), write(Stream, 'expranching('),write(Stream, E), write(Stream, ').'), nl(Stream),
-    levelplayer(F), write(Stream, 'levelplayer('),write(Stream, F), write(Stream, ').'), nl(Stream),
-    levelfarming(G), write(Stream, 'levelfarming('),write(Stream, G), write(Stream, ').'), nl(Stream),
-    levelfishing(H), write(Stream, 'levelfishing('),write(Stream, H), write(Stream, ').'), nl(Stream),
-    levelranching(I), write(Stream, 'levelranching('),write(Stream, I), write(Stream, ').'), nl(Stream),
-    nextlevelexp(J), write(Stream, 'nextlevelexp('),write(Stream, J), write(Stream, ').'), nl(Stream),
-    nextlevelexpfarming(K), write(Stream, 'nextlevelexpfarming('),write(Stream, K), write(Stream, ').'), nl(Stream),
-    nextlevelexpfishing(L), write(Stream, 'nextlevelexpfishing('),write(Stream, L), write(Stream, ').'), nl(Stream),
-    nextlevelexpranching(M), write(Stream, 'nextlevelexpranching('),write(Stream, M), write(Stream, ').'), nl(Stream),
-
-    locPlayer(N,O), write(Stream, 'locPlayer('),write(Stream, N), write(Stream, ','), write(Stream, O), write(Stream, ').'), nl(Stream),
-    forall(isDiggedTile(X,Y), saveDiggedTile(Stream, X, Y)),
-    forall(isCrop(X,Y), saveCrop(Stream, X, Y)),
-    forall(isHarvest(X,Y), saveHarvest(Stream, X, Y)),
-    close(Stream),
-    retract(menu_status(saving)),
-    assertz(menu_status(house)), 
-    write('Diary succesfully saved'), nl,
-    !.
-
-writeDiary :-
-    \+ (menu_status(house)),
-    write('Can only write diary on house'), nl.
-
-saveDiggedTile(Stream, X, Y) :-
-    menu_status(saving),
-    write(Stream, 'isDiggedTile('),write(Stream, X), write(Stream, ','), write(Stream, Y), write(Stream, ').'), nl(Stream).
-
-saveCrop(Stream, X, Y) :-
-    menu_status(saving),
-    write(Stream, 'isCrop('),write(Stream, X), write(Stream, ','), write(Stream, Y), write(Stream, ').'), nl(Stream).
-
-saveHarvest(Stream, X, Y) :-
-    menu_status(saving),
-    write(Stream, 'isHarvest('),write(Stream, X), write(Stream, ','), write(Stream, Y), write(Stream, ').'), nl(Stream).
-
-
-readDiary :-
-    % not yet tested
-    menu_status(house),
-    write('Choose your saved diary (Enter number, ex: 1, without dot (.) EOL)'), nl,
-
-    directory_files('./saved_files', L),
-    [_|[_|FL]] = L,
-    displayFilesNameList(FL, 1),
-    read_num(Num),
-    Num1 is Num - 1,
-    get_list_element(FL,Num1,Res),
-    retractall(player(_)),
-    retractall(expplayer(_)),
-    retractall(expfarming(_)),
-    retractall(expfishing(_)),
-    retractall(expranching(_)),
-    retractall(levelplayer(_)),
-    retractall(levelfarming(_)),
-    retractall(levelfishing(_)),
-    retractall(levelranching(_)),
-    retractall(nextlevelexp(_)),
-    retractall(nextlevelexpfarming(_)),
-    retractall(nextlevelexpfishing(_)),
-    retractall(nextlevelexpranching(_)),
-
-    retractall(locPlayer(_,_)),
-    retractall(isDiggedTile(_,_)),
-    retractall(isCrop(_,_)),
-    retractall(isHarvest(_,_)),
-    concat('./saved_files/', Res, DirFileName),
-    consult(DirFileName),
-    write('Reading diary succesful'), nl,
-    status, nl,
-    write('house'), nl,
-    write('- sleep.'), nl,
-    write('- writeDiary.'), nl,
-    write('- readDiary.'), nl,
-    write('- exit.'), nl. 
-
-displayFilesNameList([], _) :- !.
-displayFilesNameList(L, IDX) :-
-    [H|T] = L,
-    write(IDX), write('. '),
-    write(H), nl,
-    IDX1 is IDX + 1,
-    displayFilesNameList(T, IDX1).
 
 toNextDay :- 
     money(CurrMoney),
@@ -189,4 +93,139 @@ changeSeason(New) :-
     season(Current),
     retract(season(Current)),
     assertz(season(New)).
+
+
+writeDiary :-
+    menu_status(house),
+    retract(menu_status(house)),
+    assertz(menu_status(saving)),
+    write('Enter save name (ex: Firstday, no file extension and EOL dot (.) needed)'),nl,
+    read_atom(Name),
+    concat(Name, '.pl', FileName),
+    concat('./saved_files/', FileName, DirFileName),
+    open(DirFileName, write, Stream), !,
+
+    % TO DO: Menambahkan lebih banyak state
+    % Jangan lupa menggunakan nl(Stream) bukan nl biasa, supaya newlinenya tersimpan ke file bukan ke layar
+
+    % alchemist.pl
+    gandalf(Gandalf), saveSingleFact(Stream, gandalf, Gandalf),
+    potionBag(PotionBag), saveSingleFact(Stream, potionBag, PotionBag),
+    kaburTimer(KaburTimer), saveSingleFact(Stream, kaburTimer, KaburTimer),
+    % farming.pl
+    crop(Crop), saveSingleFact(Stream, crop, Crop),
+    % fishing.pl
+    today_fishing_count(TodayFishingCount), saveSingleFact(Stream, today_fishing_count, TodayFishingCount),
+    % house.pl
+    day(Day), saveSingleFact(Stream, day, Day),
+    season(Season), saveSingleFact(Stream, season, Season),
+    % inventory.pl
+    baglist(BagList), saveSingleFact(Stream, baglist, BagList),
+    % map.pl
+    locPlayer(XCur,YCur), saveCoupledFact(Stream, locPlayer, XCur, YCur),
+    draw_done(DrawDone), saveSingleFact(Stream, draw_done, DrawDone),
+    forall(isAir(X,Y), saveCoupledFact(Stream, isAir, X, Y)),
+    forall(isPagar(X,Y), saveCoupledFact(Stream, isPagar, X, Y)),
+    forall(isDiggedTile(X,Y), saveCoupledFact(Stream, isDiggedTile, X, Y)),
+    forall(isSoil(X,Y), saveCoupledFact(Stream, isSoil, X, Y)),
+    forall(isCrop(X,Y), saveCoupledFact(Stream, isCrop, X, Y)),
+    forall(isHarvest(X,Y), saveCoupledFact(Stream, isHarvest, X, Y)),
+    forall(isAlchemist(X,Y), saveCoupledFact(Stream, isAlchemist, X, Y)),
+    forall(isCrater(X,Y), saveCoupledFact(Stream, isCrater, X, Y)),
+    % player.pl
+    player(Player), saveSingleFact(Stream, player, Player),
+    specialty(Specialty), saveSingleFact(Stream, specialty, Specialty),
+    money(Money) , saveSingleFact(Stream, money, Money),
+    expplayer(ExpPlayer), saveSingleFact(Stream, expplayer, ExpPlayer),
+    expfarming(ExpFarming), saveSingleFact(Stream, expfarming, ExpFarming),
+    expfishing(ExpFishing), saveSingleFact(Stream, expfishing, ExpFishing),
+    expranching(ExpRanching), saveSingleFact(Stream, expranching, ExpRanching),
+    levelplayer(LevelPlayer), saveSingleFact(Stream, levelplayer, LevelPlayer),
+    levelfarming(LevelFarming), saveSingleFact(Stream, levelfarming, LevelFarming),
+    levelfishing(LevelFishing), saveSingleFact(Stream, levelfishing, LevelFishing),
+    levelranching(LevelRanching), saveSingleFact(Stream, levelranching, LevelRanching),
+    nextlevelexp(NextLevelExp), saveSingleFact(Stream, nextlevelexp, NextLevelExp),
+    nextlevelexpfarming(NextLevelExpFarming), saveSingleFact(Stream, nextlevelexpfarming, NextLevelExpFarming),
+    nextlevelexpfishing(NextLevelExpFishing), saveSingleFact(Stream, nextlevelexpfishing, NextLevelExpFishing),
+    nextlevelexpranching(NextLevelExpRanching), saveSingleFact(Stream, nextlevelexpranching, NextLevelExpRanching),
+    hoelevel(HL), saveSingleFact(Stream, hoelevel, HL),
+    fishingrodlevel(FRL), saveSingleFact(Stream, fishingrodlevel, FRL),
+    % quest.pl
+    (harvest_item(HarvesItem) -> saveSingleFact(Stream, harvest_item, HarvesItem); !),
+    (fish_item(FishItem) -> saveSingleFact(Stream, fish_item, FishItem); !),
+    (ranch_item(RanchItem) -> saveSingleFact(Stream, ranch_item, RanchItem); !),
+    isQuestActive(IsQuestActive), saveSingleFact(Stream, isQuestActive, IsQuestActive),
+    isSpecialQuest(IsSpecialQuest), saveSingleFact(Stream, isSpecialQuest, IsSpecialQuest),
+    questAdd(QuestAdd), saveSingleFact(Stream, questAdd, QuestAdd),
+    % ranching.pl
+    animals(Animals), saveSingleFact(Stream, animals, Animals),
+    chickenAffection(ChickenAffection), saveSingleFact(Stream, chickenAffection, ChickenAffection),
+    cowAffection(CowAffection), saveSingleFact(Stream, cowAffection, CowAffection),
+    sheepAffection(SheepAffection), saveSingleFact(Stream, sheepAffection, SheepAffection),
+    layTime(LayTime), saveSingleFact(Stream, layTime, LayTime),
+    milkTime(MilkTime), saveSingleFact(Stream, milkTime, MilkTime),
+    woolTime(WoolTime), saveSingleFact(Stream, woolTime, WoolTime),
+    eggProd(EggProd), saveSingleFact(Stream, eggProd, EggProd),
+    milkProd(MilkProd), saveSingleFact(Stream, milkProd, MilkProd),
+    woolProd(WoolProd), saveSingleFact(Stream, woolProd, WoolProd),
+    nextLay(NextLay), saveSingleFact(Stream, nextLay, NextLay),
+    nextMilk(NextMilk), saveSingleFact(Stream, nextMilk, NextMilk),
+    nextWool(NextWool), saveSingleFact(Stream, nextWool, NextWool),
+
+    close(Stream),
+    retract(menu_status(saving)),
+    assertz(menu_status(house)), 
+
+    write('Diary succesfully saved'), nl,
+    !.
+
+writeDiary :-
+    \+ (menu_status(house)),
+    write('Can only write diary on house'), nl.
+
+saveSingleFact(Stream, Predicate, Val) :-
+    menu_status(saving),
+    format(Stream, '~q(~q).\n', [Predicate, Val]).  % formatnya q agar ketika di save quotes nya ('') tidak hilang (misal atom lebih dari satu kata)
+
+saveCoupledFact(Stream, Predicate, A, B) :-
+    menu_status(saving),
+    format(Stream, '~q(~q,~q).\n', [Predicate, A, B]). % formatnya q agar ketika di save quotes nya ('') tidak hilang (misal atom lebih dari satu kata)
+
+
+readDiary :-
+    menu_status(house),
+    write('Choose your saved diary (Enter number (0 to cancel), ex: 1, without dot (.) EOL)'), nl,
+
+    directory_files('./saved_files', L),
+    [_|[_|FL]] = L,
+    displayFilesNameList(FL, 1),
+    read_num(Num),
+    Num1 is Num - 1,
+    get_list_element(FL,Num1,Res),  % fail jika pilihan di luar (< 0 atau >= N elemen), berguna untuk load dari main menu nanti
+    
+    resetAllDynamicFacts,
+
+    concat('./saved_files/', Res, DirFileName),
+    consult(DirFileName),
+
+    season(CurrentSeason),
+    createNewSeasonFishList(CurrentSeason, LFish),
+    retractall(fish_season_list(_)),
+    asserta(fish_season_list(LFish)),
+
+    nl,write('Reading diary succesful'), nl,
+    status, nl,
+    write('house'), nl,
+    write('- sleep.'), nl,
+    write('- writeDiary.'), nl,
+    write('- readDiary.'), nl,
+    write('- exit.'), nl. 
+
+displayFilesNameList([], _) :- !.
+displayFilesNameList(L, IDX) :-
+    [H|T] = L,
+    write(IDX), write('. '),
+    write(H), nl,
+    IDX1 is IDX + 1,
+    displayFilesNameList(T, IDX1).
 

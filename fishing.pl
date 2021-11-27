@@ -33,7 +33,8 @@ fish :-
     fish_season_list(L),
     fishingrodlevel(LevelRod),
     today_fishing_count(FC),
-    FC < LevelRod * 5,
+    RodCapacity is LevelRod * 5,
+    FC < RodCapacity,
     levelfishing(LevelFishing),
     Level is LevelRod + LevelFishing,
     chooseRandomFishBasedLevel(L, Level, X),
@@ -57,7 +58,9 @@ fish :-
                                                        changeExpFishing(4),
                                                        changeExpPlayer(4), !
     ),
-    addTodayFishingCount, !.
+    addTodayFishingCount,
+    FCNew is FC + 1,   % -1 karena FC data sebelumnya sebelum addTOdaFishingCount
+    format('Fishing rod capacity ~w/~w', [FCNew, RodCapacity]), nl, !.
 
 fish :- 
     \+ menu_status(outside), write('Cannot fish here! You must be outside to fish'), nl, !;

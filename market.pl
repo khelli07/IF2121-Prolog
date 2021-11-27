@@ -49,8 +49,9 @@ market:-
     asserta(menu_status(market)), nl,
     write('Welcome to the marketplace!'), nl,
     writeBalance,
-    write('1. Buy'), nl,
-    write('2. Sell'), nl.
+    write('buy.'), nl,
+    write('sell.'), nl,
+    write('exitMarket.'), nl.
 
 buy:- 
     isMarket,

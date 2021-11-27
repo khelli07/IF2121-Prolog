@@ -159,7 +159,7 @@ changeLevelRanching(Change) :-
     New is Old + Change,
     retract(levelranching(Old)),
     assertz(levelranching(New)),
-    format('Level up! Your new ranching level is ~w', [New]), nl.
+    format('Level up! Your new ranching level is ~w', [New]), nl,
     Remainder is New mod 10,
     ( Remainder =\= 0 -> retract(levelranching(Old)),
                          assertz(levelranching(New)),!;

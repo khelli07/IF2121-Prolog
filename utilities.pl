@@ -66,3 +66,70 @@ stringUpper(String, Index, UpperStr):-
 
 toUpper(String, Output):-
     stringUpper(String, 0, Output).
+
+% resetAllDynamicFacts tidak mereset menu_status
+resetAllDynamicFacts :-
+    % alchemist.pl
+    retractall(gandalf(_)),
+    retractall(potionBag(_)),
+    retractall(kaburTimer(_)),
+    % farming.pl
+    retractall(crop(_)),
+    % fishing.pl
+    retractall(today_fishing_count(_)),
+    % house.pl
+    retractall(day(_)),
+    retractall(season(_)),
+    % inventory.pl
+    retractall(baglist(_)),
+    % map.pl
+    retractall(draw_done(_)),
+    retractall(locPlayer(_,_)),
+    retractall(isAir(_,_)),
+    retractall(isPagar(_,_)),
+    retractall(isSoil(_,_)),
+    retractall(isDiggedTile(_,_)),
+    retractall(isCrop(_,_)),
+    retractall(isHarvest(_,_)),
+    retractall(isAlchemist(_,_)),
+    retractall(isCrater(_,_)),
+    % player.pl
+    retractall(player(_)),
+    retractall(money(_)),
+    retractall(specialty(_)),
+    retractall(money(_,_)),
+    retractall(expplayer(_)),
+    retractall(expfarming(_)),
+    retractall(expfishing(_)),
+    retractall(expranching(_)),
+    retractall(levelplayer(_)),
+    retractall(levelfarming(_)),
+    retractall(levelfishing(_)),
+    retractall(levelranching(_)),
+    retractall(nextlevelexp(_)),
+    retractall(nextlevelexpfarming(_)),
+    retractall(nextlevelexpfishing(_)),
+    retractall(nextlevelexpranching(_)),
+    retractall(hoelevel(_)),
+    retractall(fishingrodlevel(_)),
+    % quest.pl
+    retractall(harvest_item(_)),
+    retractall(fish_item(_)),
+    retractall(ranch_item(_)),
+    retractall(isQuestActive(_)),
+    retractall(isSpecialQuest(_)),
+    retractall(questAdd(_)),
+    % ranching.pl
+    retractall(animals(_)),
+    retractall(chickenAffection(_)),
+    retractall(cowAffection(_)),
+    retractall(sheepAffection(_)),
+    retractall(layTime(_)),
+    retractall(milkTime(_)),
+    retractall(woolTime(_)),
+    retractall(eggProd(_)),
+    retractall(milkProd(_)),
+    retractall(woolProd(_)),
+    retractall(nextLay(_)),
+    retractall(nextMilk(_)),
+    retractall(nextWool(_)).

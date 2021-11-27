@@ -1,10 +1,6 @@
 /* Game states */
 :- dynamic(menu_status/1). 
-:- dynamic(day/1).
-:- dynamic(season/1).
 menu_status(game_not_started).
-day(1).
-season(spring). %spring, summer, fall, winter
 
 /* 
     Available commands by menu status:
@@ -27,6 +23,7 @@ start:-
 	/* file load */
 	nl,
 	['utilities.pl'],
+	resetAllDynamicFacts,	% mencegah double fakta kalau command start dijalankan lagi, resetAllDynamicFacts tidak mengubah menu_status
 	['map.pl'],
 	['move.pl'],
 	['near.pl'],
@@ -38,6 +35,7 @@ start:-
 	['market.pl'],
 	['farming.pl'],
 	['fishing.pl'],
+	['ranching.pl'],
 	['alchemist.pl'],
 	['fairy.pl'],
 	['help.pl'],
@@ -49,7 +47,7 @@ start:-
 	/* welcome message */
 	nl,nl,nl,
 	write('Selamat Datang di Harpest Moon'),nl,
-	write('Ketik \'new.\' untuk memulai game baru'),nl,nl,!.
+	write('Ketik\n\'new.\' untuk memulai game baru\n\'load.\' untuk load game sebelumnya'),nl,nl,!.
 	
 
 /* character creation */ 
@@ -89,6 +87,19 @@ new:-
 	help,
 	nl,nl,!.
 
+load:-
+	\+menu_status(title_screen),!,
+	write('Tidak dapat load game!'),
+	nl,nl,fail.
+
+load :-
+	retract(menu_status(title_screen)),
+	retractall(menu_status(_)),
+	asserta(menu_status(house)),
+	(readDiary -> !;
+	 retractall(menu_status(_)), asserta(menu_status(title_screen)), write('Load gagal/dibatalkan!'), nl
+	).
+
 exit:-
 	menu_status(game_not_started),!,
 	write('Permainan belum dimulai!'),
@@ -98,7 +109,7 @@ exit :-
     menu_status(house),
     write('You go to outside'), nl, nl,
     retract(menu_status(house)),
-    assertz(menu_status(outside)).
+    assertz(menu_status(outside)), !.
 
 exit:-
 	menu_status(outside),
