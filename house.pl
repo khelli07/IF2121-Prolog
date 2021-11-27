@@ -6,6 +6,8 @@
 % :- include('fairy.pl'). %for rollFairy in toNextDay
 :- dynamic(day/1).
 :- dynamic(season/1).
+:- multifile(day/1).
+:- multifile(season/1).
 day(1).
 season(spring).
 seasons([spring, summer, fall, winter]).
@@ -101,8 +103,8 @@ writeDiary :-
     assertz(menu_status(saving)),
     write('Enter save name (ex: Firstday, no file extension and EOL dot (.) needed)'),nl,
     read_atom(Name),
-    concat(Name, '.pl', FileName),
-    concat('./saved_files/', FileName, DirFileName),
+    atom_concat(Name, '.pl', FileName),
+    atom_concat('./saved_files/', FileName, DirFileName),
     open(DirFileName, write, Stream), !,
 
     % TO DO: Menambahkan lebih banyak state
@@ -151,9 +153,9 @@ writeDiary :-
     hoelevel(HL), saveSingleFact(Stream, hoelevel, HL),
     fishingrodlevel(FRL), saveSingleFact(Stream, fishingrodlevel, FRL),
     % quest.pl
-    (harvest_item(HarvesItem) -> saveSingleFact(Stream, harvest_item, HarvesItem); !),
-    (fish_item(FishItem) -> saveSingleFact(Stream, fish_item, FishItem); !),
-    (ranch_item(RanchItem) -> saveSingleFact(Stream, ranch_item, RanchItem); !),
+    (\+harvest_item(HarvesItemA, HarvestItemB) -> !; saveCoupledFact(Stream, harvest_item, HarvestItemA, HarvestItemB)),
+    (\+fish_item(FishItemA, FishItemB) -> !; saveCoupledFact(Stream, fish_item, FishItemA, FishItemB)),
+    (\+ranch_item(RanchItemA, RanchItemB) -> !; saveCoupledFact(Stream, ranch_item, RanchItemA, RanchItemB)),
     isQuestActive(IsQuestActive), saveSingleFact(Stream, isQuestActive, IsQuestActive),
     isSpecialQuest(IsSpecialQuest), saveSingleFact(Stream, isSpecialQuest, IsSpecialQuest),
     questAdd(QuestAdd), saveSingleFact(Stream, questAdd, QuestAdd),
@@ -205,7 +207,7 @@ readDiary :-
     
     resetAllDynamicFacts,
 
-    concat('./saved_files/', Res, DirFileName),
+    atom_concat('./saved_files/', Res, DirFileName),
     consult(DirFileName),
 
     season(CurrentSeason),

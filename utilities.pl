@@ -37,10 +37,7 @@ read_str_aux(10, []) :- !.	% EOL (Linux)
 read_str_aux(13, []) :- !.	% EOL (baris baru)
 read_str_aux(Char, [Char|Rest]) :- read_str(Rest).
 
-% Read atom, output atom misal 'Ini string _ !@#'
-read_atom(Atom) :-
-	read_str(String),
-	atom_codes(Atom, String).
+
 % Read Number
 read_num(Number) :-
 	read_str(String),
@@ -113,9 +110,9 @@ resetAllDynamicFacts :-
     retractall(hoelevel(_)),
     retractall(fishingrodlevel(_)),
     % quest.pl
-    retractall(harvest_item(_)),
-    retractall(fish_item(_)),
-    retractall(ranch_item(_)),
+    retractall(harvest_item(_,_)),
+    retractall(fish_item(_,_)),
+    retractall(ranch_item(_,_)),
     retractall(isQuestActive(_)),
     retractall(isSpecialQuest(_)),
     retractall(questAdd(_)),

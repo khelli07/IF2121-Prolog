@@ -9,6 +9,7 @@
 
 :- dynamic(fish_season_list/1).
 :- dynamic(today_fishing_count/1).
+:- dynamic(temp_fish_list/1).
 today_fishing_count(0).
 
 % Rarity berdasarkan harga
@@ -83,11 +84,10 @@ chooseRandomFishBasedLevel(L, Level, X) :-
 
 % Create fish list with weighted rarity, called each new season (or each new level possibly with other mechanism)
 createNewSeasonFishList(S, L) :-
-    dynamic(temp_fish_list/1),  % Karena forall tidak bisa menyimpan output, perlu variabel global yang nanti dimodifikasi bersama
     asserta(temp_fish_list([])),
     forall(seasonFish(X, S), addFishBasedRarityToList(X)),
     temp_fish_list(LTemp),
-    random_permutation(LTemp, L),
+    permutation(LTemp, L),
     retractall(temp_fish_list(_)).
 
 addFishBasedRarityToList(X) :-
@@ -105,4 +105,5 @@ addTodayFishingCount :-
     asserta(today_fishing_count(X1)).
 
 % Initialize fish_season_list, spring season
-:- retractall(fish_season_list(_)), createNewSeasonFishList(spring, L), asserta(fish_season_list(L)).
+loadfirstseasonfish :- menu_status(game_not_started), retractall(fish_season_list(_)), createNewSeasonFishList(spring, L), asserta(fish_season_list(L)).
+:- initialization(loadfirstseasonfish).

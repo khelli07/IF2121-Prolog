@@ -11,7 +11,8 @@ menu_status(game_not_started).
 	house: sleep. writeDiary. readDiary. exit.
     etc. (can't think of more rn)
 */
-write('Run \"start.\" command to start playing').
+
+:- initialization(start).
 
 start:-
 	\+menu_status(game_not_started),!,
@@ -22,6 +23,7 @@ start:-
 start:-
 	/* file load */
 	nl,
+	set_prolog_flag(unknown, warning),
 	['utilities.pl'],
 	resetAllDynamicFacts,	% mencegah double fakta kalau command start dijalankan lagi, resetAllDynamicFacts tidak mengubah menu_status
 	['map.pl'],
