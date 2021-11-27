@@ -134,6 +134,21 @@ displayFilesNameList(L, IDX) :-
     displayFilesNameList(T, IDX1).
 
 toNextDay :- 
+    money(CurrMoney),
+    day(CurrDay),
+    NextDay is CurrDay + 1,
+    ( CurrMoney >= 20000
+      -> write('Congratulations! You have finally collected 20000 golds!'),nl,nl,
+         retractall(menu_status(_)),
+         asserta(menu_status(game_not_started)),!;
+      CurrMoney < 20000, NextDay > 28, season(winter)
+      -> write('You have worked hard, but in the end result is all that matters.'),nl,
+         write('May God bless you in the future with kind people!'),nl,nl,
+         retractall(menu_status(_)),
+         asserta(menu_status(game_not_started)),!   
+    ).
+
+toNextDay :-
 	updateCrop, % updates crop timer, farming.pl
 	rollFairy, % peri tidur, fairy.pl
     updateNextLay, % hasil animal, ranching.pl
