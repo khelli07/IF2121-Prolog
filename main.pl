@@ -26,6 +26,7 @@ start:-
 start:-
 	/* file load */
 	nl,
+	['utilities.pl'],
 	['map.pl'],
 	['move.pl'],
 	['near.pl'],
@@ -36,8 +37,8 @@ start:-
 	['house.pl'],
 	['market.pl'],
 	['farming.pl'],
+	['fishing.pl'],
 	['alchemist.pl'],
-	['utilities.pl'],
 	['fairy.pl'],
 	['help.pl'],
 	/* initializaitons */

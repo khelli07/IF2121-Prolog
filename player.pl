@@ -88,7 +88,8 @@ changeLevelPlayer(Change) :-
     levelplayer(Old),
     New is Old + Change,
     retract(levelplayer(Old)),
-    assertz(levelplayer(New)).
+    assertz(levelplayer(New)),
+    format('Level up! Your new level is ~w', [New]), nl.
 
 /* Mengubah experience dan level tiap skill */
 changeExpFarming(Change) :-
@@ -111,7 +112,8 @@ changeLevelFarming(Change) :-
     levelfarming(Old),
     New is Old + Change,
     retract(levelfarming(Old)),
-    assertz(levelfarming(New)).
+    assertz(levelfarming(New)),
+    format('Level up! Your new farming level is ~w', [New]), nl.
 
 changeExpFishing(Change) :-
     expfishing(Old),
@@ -133,7 +135,8 @@ changeLevelFishing(Change) :-
     levelfishing(Old),
     New is Old + Change,
     retract(levelfishing(Old)),
-    assertz(levelfishing(New)).
+    assertz(levelfishing(New)),
+    format('Level up! Your new fishing level is ~w', [New]), nl.
 
 changeExpRanching(Change) :-
     expranching(Old),
@@ -155,7 +158,8 @@ changeLevelRanching(Change) :-
     levelranching(Old),
     New is Old + Change,
     retract(levelranching(Old)),
-    assertz(levelranching(New)).
+    assertz(levelranching(New)),
+    format('Level up! Your new ranching level is ~w', [New]), nl.
 
 hoelevel(1).
 fishingrodlevel(1).

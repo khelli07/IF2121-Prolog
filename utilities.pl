@@ -15,6 +15,19 @@ get_list_element(L, I, E) :-
 	I1 is I - 1,
 	get_list_element(T, I1, E).
 
+% Get random from list
+chooseRandomFromList(L, X) :-
+	length(L, N),
+	random(0, N, R),
+	get_list_element(L, R, X).
+
+% Add X to L for N times, to the end, X is element, new List LNew created
+addNTimesToList(_, L, 0, LNew) :- LNew = L, !.
+addNTimesToList(X, L, N, LNew) :-
+    N > 0,
+    N1 is N - 1,
+    addNTimesToList(X, L, N1, L1),
+    append(L1, [X], LNew).
 
 % Read string, output List of character code
 read_str(String) :-

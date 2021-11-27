@@ -43,6 +43,7 @@ seed('sunsweet flower seed').
 
 /* FISH */
 /* fish(X): X adalah fish */
+fish('zonk fish').
 fish('arowana').
 fish('beltfish').
 fish('carp').
@@ -101,10 +102,10 @@ seasonSeed('sunsweet flower seed',fall).
 
 /* SEASON FISH*/
 /* seasonFish(X,Y): X adalah fish pada season Y */
-seasonFish('arowana',spring).
-seasonFish('arowana',summer).
-seasonFish('arowana',fall).
-seasonFish('arowana',winter).
+seasonFish('zonk fish', spring).
+seasonFish('zonk fish', summer).
+seasonFish('zonk fish', fall).
+seasonFish('zonk fish', winter).
 seasonFish('beltfish',summer).
 seasonFish('beltfish',fall).
 seasonFish('carp',spring).
@@ -113,17 +114,13 @@ seasonFish('carp',fall).
 seasonFish('carp',winter).
 seasonFish('char',spring).
 seasonFish('char',summer).
+seasonFish('killfish',spring).
+seasonFish('killfish',summer).
+seasonFish('killfish',fall).
 seasonFish('cherry trout',spring).
 seasonFish('cherry trout',summer).
 seasonFish('honmoroko',fall).
 seasonFish('honmoroko',winter).
-seasonFish('keiji salmon',spring).
-seasonFish('keiji salmon',summer).
-seasonFish('keiji salmon',fall).
-seasonFish('keiji salmon',winter).
-seasonFish('killfish',spring).
-seasonFish('killfish',summer).
-seasonFish('killfish',fall).
 seasonFish('lake prawn',fall).
 seasonFish('lake prawn',winter).
 seasonFish('large crucian carp',winter).
@@ -132,6 +129,14 @@ seasonFish('large sea bass',summer).
 seasonFish('large snakehead',spring).
 seasonFish('large snakehead',summer).
 seasonFish('large snakehead',fall).
+seasonFish('arowana',spring).
+seasonFish('arowana',summer).
+seasonFish('arowana',fall).
+seasonFish('arowana',winter).
+seasonFish('keiji salmon',spring).
+seasonFish('keiji salmon',summer).
+seasonFish('keiji salmon',fall).
+seasonFish('keiji salmon',winter).
 
 /* GROW TIME */
 /* growTime(X,Y): Waktu tumbuh seed X adalah Y hari */
@@ -242,6 +247,7 @@ price('blue magic red flower',600).
 price('true magic red flower',600).
 price('sunsweet flower',1000).
 
+price('zonk fish',0).   % zonk fish tidak pernah masuk inventory, sebelumnya nanti dicek ketika memancing
 price('arowana',350).
 price('beltfish',200).
 price('carp',120).

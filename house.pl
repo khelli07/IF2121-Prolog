@@ -155,7 +155,10 @@ toNextSeason :-
     season(Current),
     seasons(SeasonsList),
     getNextSeason(Current, SeasonsList, SeasonsList, Next),
-    changeSeason(Next).
+    changeSeason(Next),
+    retractall(fish_season_list(_)),
+    createNewSeasonFishList(Next, LFish),
+    asserta(fish_season_list(LFish)).
 
 getNextSeason(_, [], _, _) :- /* Jika tidak ada season yang cocok, gagal */
     !. 
