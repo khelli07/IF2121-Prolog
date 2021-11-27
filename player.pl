@@ -32,7 +32,8 @@ createPlayer(Name) :-
     assertz(nextlevelexp(100)),
     assertz(nextlevelexpfarming(100)),
     assertz(nextlevelexpfishing(100)),
-    assertz(nextlevelexpranching(100)).
+    assertz(nextlevelexpranching(100)),
+    fillBagInitial.
 
 createFarmer(Name) :-
     createPlayer(Name),

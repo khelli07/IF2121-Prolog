@@ -1,13 +1,24 @@
+:- dynamic(gandalf/1).
 gandalf([['red pill',3],['blue pill',3],['white pill',3]]).
+:- dynamic(potionBag/1).
 potionBag([]).
+:- dynamic(kaburTimer/1).
 kaburTimer(0).
+:- dynamic(crop/1).
 crop([]).
-today_fishing_count(2).
-day(2).
+:- dynamic(today_fishing_count/1).
+today_fishing_count(3).
+:- dynamic(day/1).
+day(3).
+:- dynamic(season/1).
 season(spring).
-baglist([['cherry trout',2]]).
+:- dynamic(baglist/1).
+baglist([['Level 1 fishing rod',1],['Level 1 hoe',1],[char,2],['cherry trout',1]]).
+:- dynamic(locPlayer/2).
 locPlayer(8,12).
-draw_done(false).
+:- dynamic(draw_done/1).
+draw_done(true).
+:- dynamic(isAir/2).
 isAir(7,3).
 isAir(5,4).
 isAir(5,5).
@@ -43,6 +54,7 @@ isAir(14,13).
 isAir(14,14).
 isAir(14,15).
 isAir(13,14).
+:- dynamic(isPagar/2).
 isPagar(0,0).
 isPagar(1,0).
 isPagar(2,0).
@@ -127,7 +139,10 @@ isPagar(20,17).
 isPagar(20,18).
 isPagar(20,19).
 isPagar(20,20).
+:- dynamic(isDiggedTile/2).
+isDiggedTile(6,13).
 isDiggedTile(7,13).
+:- dynamic(isSoil/2).
 isSoil(1,19).
 isSoil(1,18).
 isSoil(1,17).
@@ -169,44 +184,80 @@ isSoil(6,17).
 isSoil(6,16).
 isSoil(6,15).
 isSoil(6,14).
-isSoil(6,13).
 isSoil(7,19).
 isSoil(7,18).
 isSoil(7,17).
 isSoil(7,16).
 isSoil(7,15).
 isSoil(7,14).
+:- dynamic(isCrop/2).
+:- dynamic(isHarvest/2).
+:- dynamic(isAlchemist/2).
 isAlchemist(3,2).
+:- dynamic(isCrater/2).
+:- dynamic(player/1).
 player(player).
-specialty(rancher).
+:- dynamic(specialty/1).
+specialty(farmer).
+:- dynamic(money/1).
 money(0).
-expplayer(8).
+:- dynamic(expplayer/1).
+expplayer(12).
+:- dynamic(expfarming/1).
 expfarming(0).
-expfishing(8).
+:- dynamic(expfishing/1).
+expfishing(12).
+:- dynamic(expranching/1).
 expranching(0).
+:- dynamic(levelplayer/1).
 levelplayer(1).
+:- dynamic(levelfarming/1).
 levelfarming(1).
+:- dynamic(levelfishing/1).
 levelfishing(1).
+:- dynamic(levelranching/1).
 levelranching(1).
+:- dynamic(nextlevelexp/1).
 nextlevelexp(100).
+:- dynamic(nextlevelexpfarming/1).
 nextlevelexpfarming(100).
+:- dynamic(nextlevelexpfishing/1).
 nextlevelexpfishing(100).
+:- dynamic(nextlevelexpranching/1).
 nextlevelexpranching(100).
+:- dynamic(hoelevel/1).
 hoelevel(1).
+:- dynamic(fishingrodlevel/1).
 fishingrodlevel(1).
+:- dynamic(isQuestActive/1).
 isQuestActive(0).
+:- dynamic(isSpecialQuest/1).
 isSpecialQuest(0).
+:- dynamic(questAdd/1).
 questAdd(0).
+:- dynamic(animals/1).
 animals([[chicken,1],[cow,1],[sheep,1]]).
+:- dynamic(chickenAffection/1).
 chickenAffection(0).
+:- dynamic(cowAffection/1).
 cowAffection(0).
+:- dynamic(sheepAffection/1).
 sheepAffection(0).
+:- dynamic(layTime/1).
 layTime(5).
+:- dynamic(milkTime/1).
 milkTime(4).
+:- dynamic(woolTime/1).
 woolTime(7).
+:- dynamic(eggProd/1).
 eggProd(3).
+:- dynamic(milkProd/1).
 milkProd(2).
+:- dynamic(woolProd/1).
 woolProd(1).
-nextLay(1).
-nextMilk(1).
-nextWool(1).
+:- dynamic(nextLay/1).
+nextLay(2).
+:- dynamic(nextMilk/1).
+nextMilk(2).
+:- dynamic(nextWool/1).
+nextWool(2).

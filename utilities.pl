@@ -36,7 +36,10 @@ read_str_aux(-1, []) :- !.	% EOF
 read_str_aux(10, []) :- !.	% EOL (Linux)
 read_str_aux(13, []) :- !.	% EOL (baris baru)
 read_str_aux(Char, [Char|Rest]) :- read_str(Rest).
-
+% Read atom, able to accept space separated atom
+read_atom_string(Atom) :-
+	read_str(String),
+	atom_codes(Atom, String).
 
 % Read Number
 read_num(Number) :-

@@ -1,8 +1,11 @@
 /* inventory.pl */
 :- dynamic(baglist/1).
-
 /* Initialize bag */
 baglist([]).
+
+fillBagInitial :-
+    saveToBag(['Level 1 fishing rod', 1]),
+    saveToBag(['Level 1 hoe', 1]).
 
 /* Item getter */
 itemName([Name|_], Name).

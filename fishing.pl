@@ -28,11 +28,18 @@ fish_rarity('large crucian carp',4).
 fish_rarity('large sea bass',4).
 fish_rarity('large snakehead',4).
 
+fishingrodlevel('Level 1 fishing rod', 1).
+fishingrodlevel('Level 2 fishing rod', 2).
+fishingrodlevel('Level 3 fishing rod', 3).
+fishingrodlevel('Level 4 fishing rod', 4).
+fishingrodlevel(_, 0).
+
 fish :- 
     menu_status(outside),
     isNearAir,
     fish_season_list(L),
-    fishingrodlevel(LevelRod),
+    baglist(BL),
+    getFishingRodMaxLevel(BL, LevelRod),
     today_fishing_count(FC),
     RodCapacity is LevelRod * 5,
     FC < RodCapacity,
@@ -103,6 +110,13 @@ addTodayFishingCount :-
     X1 is X + 1,
     retractall(today_fishing_count(_)),
     asserta(today_fishing_count(X1)).
+
+getFishingRodMaxLevel([], 0) :- !.
+getFishingRodMaxLevel([H|T], Level) :-
+    [HH|_] = H,
+    fishingrodlevel(HH, LA),
+    getFishingRodMaxLevel(T, LB),
+    max(LA, LB, Level), !.
 
 % Initialize fish_season_list, spring season
 loadfirstseasonfish :- menu_status(game_not_started), retractall(fish_season_list(_)), createNewSeasonFishList(spring, L), asserta(fish_season_list(L)).

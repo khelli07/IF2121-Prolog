@@ -6,8 +6,6 @@
 % :- include('fairy.pl'). %for rollFairy in toNextDay
 :- dynamic(day/1).
 :- dynamic(season/1).
-:- multifile(day/1).
-:- multifile(season/1).
 day(1).
 season(spring).
 seasons([spring, summer, fall, winter]).
@@ -102,7 +100,7 @@ writeDiary :-
     retract(menu_status(house)),
     assertz(menu_status(saving)),
     write('Enter save name (ex: Firstday, no file extension and EOL dot (.) needed)'),nl,
-    read_atom(Name),
+    read_atom_string(Name),
     atom_concat(Name, '.pl', FileName),
     atom_concat('./saved_files/', FileName, DirFileName),
     open(DirFileName, write, Stream), !,
@@ -124,15 +122,24 @@ writeDiary :-
     % inventory.pl
     baglist(BagList), saveSingleFact(Stream, baglist, BagList),
     % map.pl
+    format(Stream, ':- dynamic(~q/2).\n', [locPlayer]),
     locPlayer(XCur,YCur), saveCoupledFact(Stream, locPlayer, XCur, YCur),
     draw_done(DrawDone), saveSingleFact(Stream, draw_done, DrawDone),
+    format(Stream, ':- dynamic(~q/2).\n', [isAir]),
     forall(isAir(X,Y), saveCoupledFact(Stream, isAir, X, Y)),
+    format(Stream, ':- dynamic(~q/2).\n', [isPagar]),
     forall(isPagar(X,Y), saveCoupledFact(Stream, isPagar, X, Y)),
+    format(Stream, ':- dynamic(~q/2).\n', [isDiggedTile]),
     forall(isDiggedTile(X,Y), saveCoupledFact(Stream, isDiggedTile, X, Y)),
+    format(Stream, ':- dynamic(~q/2).\n', [isSoil]),
     forall(isSoil(X,Y), saveCoupledFact(Stream, isSoil, X, Y)),
+    format(Stream, ':- dynamic(~q/2).\n', [isCrop]),
     forall(isCrop(X,Y), saveCoupledFact(Stream, isCrop, X, Y)),
+    format(Stream, ':- dynamic(~q/2).\n', [isHarvest]),
     forall(isHarvest(X,Y), saveCoupledFact(Stream, isHarvest, X, Y)),
+    format(Stream, ':- dynamic(~q/2).\n', [isAlchemist]),
     forall(isAlchemist(X,Y), saveCoupledFact(Stream, isAlchemist, X, Y)),
+    format(Stream, ':- dynamic(~q/2).\n', [isCrater]),
     forall(isCrater(X,Y), saveCoupledFact(Stream, isCrater, X, Y)),
     % player.pl
     player(Player), saveSingleFact(Stream, player, Player),
@@ -153,9 +160,9 @@ writeDiary :-
     hoelevel(HL), saveSingleFact(Stream, hoelevel, HL),
     fishingrodlevel(FRL), saveSingleFact(Stream, fishingrodlevel, FRL),
     % quest.pl
-    (\+harvest_item(HarvesItemA, HarvestItemB) -> !; saveCoupledFact(Stream, harvest_item, HarvestItemA, HarvestItemB)),
-    (\+fish_item(FishItemA, FishItemB) -> !; saveCoupledFact(Stream, fish_item, FishItemA, FishItemB)),
-    (\+ranch_item(RanchItemA, RanchItemB) -> !; saveCoupledFact(Stream, ranch_item, RanchItemA, RanchItemB)),
+    (harvest_item(HarvestItemA, HarvestItemB) -> saveCoupledFact(Stream, harvest_item, HarvestItemA, HarvestItemB); !),
+    (fish_item(FishItemA, FishItemB) -> saveCoupledFact(Stream, fish_item, FishItemA, FishItemB); !),
+    (ranch_item(RanchItemA, RanchItemB) -> saveCoupledFact(Stream, ranch_item, RanchItemA, RanchItemB); !),
     isQuestActive(IsQuestActive), saveSingleFact(Stream, isQuestActive, IsQuestActive),
     isSpecialQuest(IsSpecialQuest), saveSingleFact(Stream, isSpecialQuest, IsSpecialQuest),
     questAdd(QuestAdd), saveSingleFact(Stream, questAdd, QuestAdd),
@@ -187,6 +194,7 @@ writeDiary :-
 
 saveSingleFact(Stream, Predicate, Val) :-
     menu_status(saving),
+    format(Stream, ':- dynamic(~q/1).\n', [Predicate]),
     format(Stream, '~q(~q).\n', [Predicate, Val]).  % formatnya q agar ketika di save quotes nya ('') tidak hilang (misal atom lebih dari satu kata)
 
 saveCoupledFact(Stream, Predicate, A, B) :-
@@ -221,7 +229,7 @@ readDiary :-
     write('- sleep.'), nl,
     write('- writeDiary.'), nl,
     write('- readDiary.'), nl,
-    write('- exit.'), nl. 
+    write('- exit.'), nl, !. 
 
 displayFilesNameList([], _) :- !.
 displayFilesNameList(L, IDX) :-
