@@ -178,10 +178,7 @@ sheep:-
     write('Anda sedang tidak berada di luar'),!.
 
 sheep:- 
-    locPlayer(X,Y),
-    isRanch(X1,Y1),
-    X =\= X1,
-    Y =\= Y1,
+    \+isOnRanch,
     write('Anda sedang tidak berada di ranch!'),!.
 
 sheep:-
@@ -192,10 +189,7 @@ cow:-
     write('Anda sedang tidak berada di luar'),!.
 
 cow:- 
-    locPlayer(X,Y),
-    isRanch(X1,Y1),
-    X =\= X1,
-    Y =\= Y1,
+    \+isOnRanch,
     write('Anda sedang tidak berada di ranch!'),!.
 
 cow:-
@@ -206,10 +200,7 @@ chicken:-
     write('Anda sedang tidak berada di luar'),!.
 
 chicken:- 
-    locPlayer(X,Y),
-    isRanch(X1,Y1),
-    X =\= X1,
-    Y =\= Y1,
+    \+isOnRanch,
     write('Anda sedang tidak berada di ranch!'),!.
 
 chicken:-
@@ -228,10 +219,7 @@ ranch:-
     write('Anda sedang tidak berada di luar'),!.
 
 ranch:- 
-    locPlayer(X,Y),
-    isRanch(X1,Y1),
-    X =\= X1,
-    Y =\= Y1,
+    \+isOnRanch,
     write('Anda sedang tidak berada di ranch!'),!.
 
 ranch:-
@@ -250,12 +238,12 @@ lay:-
     levelranching(LevelRanching),
     GoldenExp is LevelRanching * 10,
     saveToBag(['golden egg',1]),
-    write('Your chicken lays a golden egg!'),nl,
+    write('Your chicken has laid a golden egg!'),nl,
     write('You got special item: Golden Egg!'),nl,
     changeExpRanching(GoldenExp),
     format('You gained ~w ranching exp!',[GoldenExp]),nl,nl,
     increaseChickenAffection,
-    write('You gained affection from your chicken!'),nl,!.
+    write('You gained affection from your chicken(s)!'),nl,!.
 
 lay:-
     layTime(LayTime),
@@ -266,7 +254,7 @@ lay:-
     Eggs is Prod * Chickens,
     Exp is Eggs * 3,
     saveToBag(['chicken',Eggs]),
-    format('Your chicken lays ~w eggs.',[Eggs]),nl,
+    format('Your chicken(s) has laid ~w eggs.',[Eggs]),nl,
     format('You got ~w eggs!',[Eggs]),nl,
     changeExpRanching(Exp),
     format('You gained ~w ranching exp!',[Exp]),nl,nl,
@@ -275,7 +263,7 @@ lay:-
     write('You gained affection from your chickens!'),nl,!.
 
 lay:-
-    write('Your chickens hasn\'t laid any eggs'),nl,
+    write('Your chicken(s) hasn\'t laid any eggs'),nl,
     write('Please check again later.'),nl,!.
 
 milk:-
@@ -286,12 +274,12 @@ milk:-
     levelranching(LevelRanching),
     GoldenExp is LevelRanching * 15,
     saveToBag(['golden milk',1]),
-    write('Your cow produces some golden milk!'),nl,
+    write('Your cow has produced a bottle of golden milk!'),nl,
     write('You got special item: Golden Milk!'),nl,
     changeExpRanching(GoldenExp),
     format('You gained ~w ranching exp!',[GoldenExp]),nl,
     increaseCowAffection,
-    write('You gained affection from your cows!'),nl,!.
+    write('You gained affection from your cow(s)!'),nl,!.
 
 milk:-
     milkTime(MilkTime),
@@ -302,16 +290,16 @@ milk:-
     Milk is Prod * Cows,
     Exp is Cows * 4,
     saveToBag(['milk',Milk]),
-    format('Your cow produces ~w bootle of milk.',[Milk]),nl,
-    format('You got ~w bottle of milk!',[Milk]),nl,
+    format('Your cow(s) has produced ~w bootles of milk.',[Milk]),nl,
+    format('You got ~w bottles of milk!',[Milk]),nl,
     changeExpRanching(Exp),
     format('You gained ~w ranching exp!',[Exp]),nl,nl,
     resetNextMilk,
     increaseCowAffection,
-    write('You gained affection from your cows!'),nl,!.
+    write('You gained affection from your cow(s)!'),nl,!.
 
 milk:-
-    write('Your cows hasn\'t produced any milk'),nl,
+    write('Your cow(s) hasn\'t produced any milk'),nl,
     write('Please check again later.'),nl,!.
 
 wool:-
@@ -322,7 +310,7 @@ wool:-
     levelranching(LevelRanching),
     GoldenExp is LevelRanching * 20,
     saveToBag(['golden wool',1]),
-    write('Your sheep grows golden fleece!'),nl,
+    write('Your sheep has produced a bag of golden wool!'),nl,
     write('You got special item: Golden Wool!'),nl,
     changeExpRanching(GoldenExp),
     format('You gained ~w ranching exp!',[GoldenExp]),nl,
@@ -338,8 +326,8 @@ wool:-
     Wool is Prod * Sheep,
     Exp is Sheep * 5,
     saveToBag(['wool',Wool]),
-    format('Your sheep produces ~w bag of wool.',[Wool]),nl,
-    format('You got ~w bag of wool!',[Wool]),nl,
+    format('Your sheep has produced ~w bag(s) of wool.',[Wool]),nl,
+    format('You got ~w bag(s) of wool!',[Wool]),nl,
     changeExpRanching(Exp),
     format('You gained ~w ranching exp!',[Exp]),nl,nl,
     resetNextWool,
