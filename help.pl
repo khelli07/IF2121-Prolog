@@ -13,6 +13,7 @@ help:-
 	menu_status(title_screen),
 	write('---------------- Command List ----------------'),nl,
 	write('| new.        :- starts a new game           |'),nl,
+	write('| load.       :- loads a savefile            |'),nl,
 	write('----------------------------------------------'),nl,!.
 
 help:-
@@ -37,11 +38,21 @@ help:-
 	write('| dig.        :- digs soil                   |'),nl,
 	write('| plant.      :- plants seed                 |'),nl,
 	write('| harvest.    :- harvests crops              |'),nl,
+	write('| ranch.      :- opens ranch                 |'),nl,
+	write('| fish.       :- fishing                     |'),nl,
 	write('| market.     :- enters market               |'),nl,
 	write('| house.      :- enters house                |'),nl,
 	write('| quest.      :- gets quest                  |'),nl,
 	write('| alchemist.  :- ?                           |'),nl,
 	write('| potion.     :- ??                          |'),nl,
+	write('----------------------------------------------'),nl,!.
+	
+help:-
+	isOnRanch,
+	write('---------------- Command List ----------------'),nl,
+	write('| chicken.    :- grooms your chicken         |'),nl,
+	write('| cow.        :- grooms your cow             |'),nl,
+	write('| sheep.      :- grooms your sheep           |'),nl,
 	write('----------------------------------------------'),nl,!.
 	
 help:-
