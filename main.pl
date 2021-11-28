@@ -48,7 +48,7 @@ start:-
 
 	/* welcome message */
 	nl,nl,nl,
-	write('Selamat Datang di Harpest Moon'),nl,
+	write('Selamat Datang di Hopeless Moon'),nl,
 	write('Ketik\n\'new.\' untuk memulai game baru\n\'load.\' untuk load game sebelumnya'),nl,nl,!.
 	
 
