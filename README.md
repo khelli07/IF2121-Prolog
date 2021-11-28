@@ -11,15 +11,11 @@ Made with <span class="heart">♥</span> by:
 
 ## Program Overview
 
-<hr>
-
 Hopeless Moon merupakan game RPG berbasis CLI yang terinspirasi dari game Harvest Moon. Di dalamnya, pemain dapat berperan sebagai farmer (petani), fisher (nelayan), atau rancher (peternak). Setiap peran memiliki keunggulan masing-masing.
 
 Untuk menyelesaikan game, pemain harus mengumpulkan 20 000 gold sebelum waktu game melewati 1 tahun.
 
 ## How to Run
-
-<hr>
 
 1. Pastikan kalian memiliki GNU Prolog yang sudah terinstall.
 2. Git clone repository ini.
