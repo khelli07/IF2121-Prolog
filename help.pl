@@ -25,6 +25,22 @@ help:-
 	write('----------------------------------------------'),nl,!.
 
 help:-
+	isOnRanch,
+	write('---------------- Command List ----------------'),nl,
+	write('| chicken.    :- grooms your chicken         |'),nl,
+	write('| cow.        :- grooms your cow             |'),nl,
+	write('| sheep.      :- grooms your sheep           |'),nl,
+	write('----------------------------------------------'),nl,!.
+	
+help:-
+	isOnQuest,
+	write('---------------- Command List ----------------'),nl,
+	write('| generateNormalQuest.                       |'),nl,
+	write('| generateSpecialQuest.                      |'),nl,
+	write('| submitQuest.                               |'),nl,
+	write('----------------------------------------------'),nl,!.
+
+help:-
 	menu_status(outside),
 	write('---------------- Command List ----------------'),nl,
 	write('| w.          :- moves up                    |'),nl,
@@ -42,17 +58,9 @@ help:-
 	write('| fish.       :- fishing                     |'),nl,
 	write('| market.     :- enters market               |'),nl,
 	write('| house.      :- enters house                |'),nl,
-	write('| quest.      :- gets quest                  |'),nl,
+	write('| showQuest.  :- displays quests             |'),nl,
 	write('| alchemist.  :- ?                           |'),nl,
 	write('| potion.     :- ??                          |'),nl,
-	write('----------------------------------------------'),nl,!.
-	
-help:-
-	isOnRanch,
-	write('---------------- Command List ----------------'),nl,
-	write('| chicken.    :- grooms your chicken         |'),nl,
-	write('| cow.        :- grooms your cow             |'),nl,
-	write('| sheep.      :- grooms your sheep           |'),nl,
 	write('----------------------------------------------'),nl,!.
 	
 help:-
