@@ -221,31 +221,31 @@ price('blue magic red flower seed',600).
 price('true magic red flower seed',600).
 price('sunsweet flower seed',1000).
 
-price('turnip',120).
-price('potato',150).
-price('cucumber',200).
-price('strawberries',150).
-price('cabbage',500).
-price('moondrop flower',500).
-price('toy flower',400).
+price('turnip',240).
+price('potato',300).
+price('cucumber',400).
+price('strawberries',300).
+price('cabbage',1000).
+price('moondrop flower',1000).
+price('toy flower',800).
 
-price('tomato',200).
-price('corn',300).
-price('onion',150).
-price('pumpkin',500).
-price('pineapple',1000).
-price('pink cat flower',300).
+price('tomato',400).
+price('corn',600).
+price('onion',300).
+price('pumpkin',1000).
+price('pineapple',2000).
+price('pink cat flower',600).
 
-price('eggplant',120).
-price('carrot',300).
-price('yam',300).
-price('spinach',200).
-price('green pepper',150).
-price('adzuki beans',300).
-price('chili peppers',300).
-price('blue magic red flower',600).
-price('true magic red flower',600).
-price('sunsweet flower',1000).
+price('eggplant',240).
+price('carrot',600).
+price('yam',600).
+price('spinach',400).
+price('green pepper',300).
+price('adzuki beans',600).
+price('chili peppers',600).
+price('blue magic red flower',1200).
+price('true magic red flower',1200).
+price('sunsweet flower',2000).
 
 price('zonk fish',0).   % zonk fish tidak pernah masuk inventory, sebelumnya nanti dicek ketika memancing
 price('arowana',350).

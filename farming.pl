@@ -40,9 +40,9 @@ dig:-
 	isOnSoil,!,
 	locPlayer(P,Q),!,
 	R is Q-1,
-	move(P,R),!,
 	retract(isSoil(P,Q)),
 	assertz(isDiggedTile(P,Q)),
+	move(P,R),!,
 	write('Anda berhasil menggarap tanah'),
 	nl,nl,!.
 
@@ -185,10 +185,10 @@ plant(S,B):-
 	hoeEffect(L,D1,D),
 	R is Q-1,
 	addCrop([P,Q,D,Name]),
-	move(P,R),!,
 	deleteFromBag([Name,1]),!,
 	retract(isDiggedTile(P,Q)),
 	assertz(isCrop(P,Q)),
+	move(P,R),!,
 	write('Anda berhasil menanam'),
 	nl,nl,!.
 
