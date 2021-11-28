@@ -35,6 +35,7 @@ sleep :-
     write('- exit.'), nl, !.
 
 sleep :- 
+	\+menu_status(game_not_started),!,
     write('You don''t have access to this function! Go to house').
 
 toNextDay :- 
@@ -50,7 +51,7 @@ toNextDay :-
          write('May God bless you in the future with kind people!'),nl,nl,
          retractall(menu_status(_)),
          asserta(menu_status(game_not_started)),!   
-    ).
+    ),!,fail.
 
 toNextDay :-
 	updateCrop, % updates crop timer, farming.pl
