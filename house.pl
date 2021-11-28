@@ -23,16 +23,20 @@ house :-
 
 sleep :-
     menu_status(house),
+	write('You went to sleep'), nl, nl,
     toNextDay,
-    write('You went to sleep'), nl, nl,
     day(D), season(S),
-    write('Day '), write(D),
-    write(' Season '), write(S), nl, nl,
-    write('house'), nl,
-    write('- sleep.'), nl,
-    write('- writeDiary.'), nl,
-    write('- readDiary.'), nl,
-    write('- exit.'), nl, !.
+	( menu_status(house)
+		->	write('Day '), write(D),
+			write(' Season '), write(S), nl, nl,
+			write('house'), nl,
+			write('- sleep.'), nl,
+			write('- writeDiary.'), nl,
+			write('- readDiary.'), nl,
+			write('- exit.'), nl; 
+	   menu_status(X)
+		->  !
+	),!.
 
 sleep :- 
 	\+menu_status(game_not_started),!,
