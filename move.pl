@@ -17,7 +17,7 @@ move(P,Q):-
 
 move(P,Q):-
 	retract(locPlayer(_,_)),
-	asserta(locPlayer(P,Q)),!.
+	asserta(locPlayer(P,Q)), map,!.
 
 w:-
 	locPlayer(A,B),!,
