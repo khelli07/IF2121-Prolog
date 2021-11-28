@@ -12,6 +12,10 @@ isQuestActive(0).
 isSpecialQuest(0).
 
 /* Quest functions */
+isQuestCommand:-
+    \+menu_status(title_screen),
+    \+menu_status(game_not_started).
+
 writeQuest:-
     write('You need to collect: '), nl,
     harvest_item(HName, HCount),
@@ -52,6 +56,7 @@ acceptQuestHandler:-
 /* Quest command */
 /* Quest generator */
 generateNormalQuest:-
+    isQuestCommand,
     retractQuest,
 
     questAdd(X),
@@ -71,6 +76,7 @@ generateNormalQuest:-
     asserta(isSpecialQuest(0)).
 
 generateSpecialQuest:-
+    isQuestCommand,
     retractQuest,
 
     random(3, 10, HCount),
@@ -94,6 +100,7 @@ generateSpecialQuest:-
 
 /* Quest handler */
 submitQuest:-
+    isQuestCommand,
     baglist(Bag),
     isSpecialQuest(T),
     inventory, nl,
@@ -173,6 +180,7 @@ submitQuest:-
     ).
 
 showQuest:-
+    isQuestCommand,
     isQuestActive(Status), nl,
     (
         Status == 0
