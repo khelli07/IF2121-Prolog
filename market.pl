@@ -1,6 +1,6 @@
 /* market.pl */
 
-/* Market functions */
+/* Market helper functions */
 isMarket:-
     menu_status(market).
 
