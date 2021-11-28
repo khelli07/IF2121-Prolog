@@ -152,11 +152,11 @@ deleteFromBag(Item):-
     asserta(baglist(UpdatedBag)),
     retract((baglist(OldBag))).
 
-/* Bag command */
 isInventory:-
     \+menu_status(title_screen),
     \+menu_status(game_not_started).
 
+/* Bag command */
 inventory:-
     isInventory,
     baglist(List),

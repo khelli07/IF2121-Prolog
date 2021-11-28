@@ -49,6 +49,7 @@ acceptQuestHandler:-
                asserta(isSpecialQuest(0))
     ), !.
 
+/* Quest command */
 /* Quest generator */
 generateNormalQuest:-
     retractQuest,
@@ -150,11 +151,11 @@ submitQuest:-
                     format('Your current balance is ~w.', [Money]),
                     
                     questAdd(X),
-                    (X =< 70
+                    (X =< 50
                         ->  X1 is X + 5,
                             retract(questAdd(X)),
                             asserta(questAdd(X1)), !;
-                    X > 70
+                    X > 50
                         ->  X is X
                     ),
 
