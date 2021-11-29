@@ -114,16 +114,17 @@ new:-
 
 load:-
 	\+menu_status(title_screen),!,
-	write('TCan not load the game!'),
+	write('Can not load the game!'),
 	nl,nl,fail.
 
 load :-
-	retract(menu_status(title_screen)),
 	retractall(menu_status(_)),
 	asserta(menu_status(house)),
-	(readDiary -> !;
-	 retractall(menu_status(_)), asserta(menu_status(title_screen)), write('Load aborted!'), nl
-	).
+	(readDiary -> !; retractall(menu_status(_)), asserta(menu_status(title_screen))).
+	% catch(readDiary, E, (write('Cannot acces saved files! Try restarting Prolog!\n'),
+	% 					 retractall(menu_status(_)),
+	% 					 asserta(menu_status(title_screen)))),
+	% (player(X) -> !; retractall(menu_status(_)), asserta(menu_status(title_screen))). % Mengecek gagal atau tidak
 
 exit:-
 	menu_status(game_not_started),!,
