@@ -63,3 +63,16 @@ gotoMarket:-
 gotoQuest:-
 	retract(locPlayer(_,_)),
 	asserta(locPlayer(18,18)),!.
+
+fullAffection:-
+	specialty(rancher),
+	chickenAffection(OldChickAff),
+	cowAffection(OldCowAff),
+	sheepAffection(OldSheepAff),
+	New is 20,
+	retract(chickenAffection(OldChickAff)),
+	asserta(chickenAffection(New)),
+	retract(cowAffection(OldCowAff)),
+	asserta(cowAffection(New)),
+	retract(sheepAffection(OldSheepAff)),
+	asserta(sheepAffection(New)).
