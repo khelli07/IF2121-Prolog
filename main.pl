@@ -58,7 +58,7 @@ farmer:-
 	createFarmer(player),
 	retract(menu_status(character_creation)),
 	assertz(menu_status(outside)),
-	write('Anda memilih menjadi Farmer!'),nl,nl,
+	write('You choose to be a Farmer!'),nl,nl,
 	help,!.
 
 fisherman:-
@@ -66,7 +66,7 @@ fisherman:-
 	createFisherman(player),
 	retract(menu_status(character_creation)),
 	assertz(menu_status(outside)),
-	write('Anda memilih menjadi Fisherman!'),nl,nl,
+	write('You choose to be a Fisherman!'),nl,nl,
 	help,!.
 	
 rancher:-
@@ -74,37 +74,61 @@ rancher:-
 	createRancher(player),
 	retract(menu_status(character_creation)),
 	assertz(menu_status(outside)),
-	write('Anda memilih menjadi Rancher!'),nl,nl,
+	write('You choose to be a Rancher!'),nl,nl,
 	help,!.
 	
 new:-
 	\+menu_status(title_screen),!,
-	write('Tidak dapat memulai game baru!'),
+	write('Can not start a new game right now!'),
 	nl,nl,fail.
 
 new:-
+    write('Welcome to the game...'), nl, nl,
+    write('Grandpa: Hello, Claire! Thank God you are back.'), nl,
+    write('         My village has been neglected these days.'), nl,
+    write('         I have been very busy with my health :('), nl, nl,
+    write('Type any number to continue'), nl, read_integer(X11), nl,
+
+    write('Claire: What happend to your health grandpa?'), nl, nl,
+    write('Type any number to continue'), nl, read_integer(X22), nl,
+
+    write('Grandpa: Nah, don\'t worry about it. Just some old sickness.'), nl,
+    write('         Anyway, could you take over my village?'), nl, nl,
+    write('Type any number to continue'), nl, read_integer(X33), nl,
+
+    write('Claire: Yes, grandpa. I also happen to have a 20 000 debt'), nl,
+    write('        and I need to pay them in less than a year.'), nl, nl, 
+    write('Type any number to continue'), nl, read_integer(X44), nl,
+
+    write('Grandpa: Aww, my sweetheart. Thank you very much.'), nl,
+    write('         From now on, this is your village.'), nl,
+    write('         I don\'t even know if I can survive another year, lol.'), nl, nl,
+    write('         Good luck! Love you <3'), nl, nl,
+    write('Type any number to continue'), nl, read_integer(X55), nl,
+    nl, nl,
 	retract(menu_status(title_screen)),
 	asserta(menu_status(character_creation)),
-	write('Silahkan pilih role!'),nl,nl,
+	write('Please choose a role!'),nl,nl,
 	help,
 	nl,nl,!.
 
 load:-
 	\+menu_status(title_screen),!,
-	write('Tidak dapat load game!'),
+	write('Can not load the game!'),
 	nl,nl,fail.
 
 load :-
-	retract(menu_status(title_screen)),
 	retractall(menu_status(_)),
 	asserta(menu_status(house)),
-	(readDiary -> !;
-	 retractall(menu_status(_)), asserta(menu_status(title_screen)), write('Load gagal/dibatalkan!'), nl
-	).
+	(readDiary -> !; retractall(menu_status(_)), asserta(menu_status(title_screen))).
+	% catch(readDiary, E, (write('Cannot acces saved files! Try restarting Prolog!\n'),
+	% 					 retractall(menu_status(_)),
+	% 					 asserta(menu_status(title_screen)))),
+	% (player(X) -> !; retractall(menu_status(_)), asserta(menu_status(title_screen))). % Mengecek gagal atau tidak
 
 exit:-
 	menu_status(game_not_started),!,
-	write('Permainan belum dimulai!'),
+	write('GAME! IS! NOT! STARTED!!!'),
 	nl,nl,fail.
 
 exit :- 
