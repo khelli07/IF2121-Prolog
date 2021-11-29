@@ -65,6 +65,8 @@ toNextDay :-
     updateNextLay, % hasil animal, ranching.pl
     updateNextMilk,
     updateNextWool,
+    retractall(today_fishing_count(_)), % reset fishing count
+    asserta(today_fishing_count(0)),
     addDay(1).
 
 /* negatif Add to substract day */
@@ -213,7 +215,7 @@ readDiary :-
     menu_status(house),
     write('Choose your saved diary (Enter number (0 to cancel), ex: 1, without dot (.) EOL)'), nl,
 
-    directory_files('./saved_files', L),
+    catch(directory_files('./saved_files', L), E, (write('Cannot acces saved files! Try close VS Code/any code editor and then restart Prolog and the command line!\n'), fail)),
     [_|[_|FL]] = L,
     displayFilesNameList(FL, 1),
     read_num(Num),
