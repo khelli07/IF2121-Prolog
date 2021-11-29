@@ -1,7 +1,7 @@
 % displays available command for each menu
 
 helpmsg:-
-	write('Command tidak tersdia! Ketik \'help.\' untuk daftar command'),!.
+	write('Command tidak tersedia! Ketik \'help.\' untuk daftar command'),!.
 
 help:-
 	menu_status(game_not_started),
