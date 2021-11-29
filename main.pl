@@ -83,27 +83,26 @@ new:-
 	nl,nl,fail.
 
 new:-
-    write('Welcome to the game...'), nl, nl,
-    write('Grandpa: Hello, Claire! Thank God you are back.'), nl,
-    write('         My village has been neglected these days.'), nl,
-    write('         I have been very busy with my health :('), nl, nl,
+    X1 = 'Welcome to the game!', 
+    writeDelay(X1, 0.05), nl, nl,
+    X2 = 'Grandpa: Hello, Claire! Thank God you are back. My village has been neglected these days. I have been very busy with my health :(', 
+    writeDelay(X2, 0.05), nl, nl,
     write('Type any number to continue'), nl, read_integer(X11), nl,
 
-    write('Claire: What happend to your health grandpa?'), nl, nl,
+    X3 = 'Claire: What happend to your health grandpa?',
+    writeDelay(X3, 0.05), nl, nl,
     write('Type any number to continue'), nl, read_integer(X22), nl,
 
-    write('Grandpa: Nah, don\'t worry about it. Just some old sickness.'), nl,
-    write('         Anyway, could you take over my village?'), nl, nl,
+    X4 = 'Grandpa: Nah, don\'t worry about it. Just some old sickness. Anyway, could you take over my village?', 
+    writeDelay(X4, 0.05), nl, nl,
     write('Type any number to continue'), nl, read_integer(X33), nl,
 
-    write('Claire: Yes, grandpa. I also happen to have a 20 000 debt'), nl,
-    write('        and I need to pay them in less than a year.'), nl, nl, 
+    X5 = 'Claire: Yes, grandpa. I also happen to have a 20 000 debt and I need to pay them in less than a year.', 
+    writeDelay(X5, 0.05), nl, nl, 
     write('Type any number to continue'), nl, read_integer(X44), nl,
 
-    write('Grandpa: Aww, my sweetheart. Thank you very much.'), nl,
-    write('         From now on, this is your village.'), nl,
-    write('         I don\'t even know if I can survive another year, lol.'), nl, nl,
-    write('         Good luck! Love you <3'), nl, nl,
+    X6 = 'Grandpa: Aww, my sweetheart. Thank you very much. From now on, this is your village. I don\'t even know if I can survive another year, lol. Good luck! Love you <3',
+    writeDelay(X6, 0.05), nl, nl,
     write('Type any number to continue'), nl, read_integer(X55), nl,
     nl, nl,
 	retract(menu_status(title_screen)),

@@ -67,6 +67,30 @@ stringUpper(String, Index, UpperStr):-
 toUpper(String, Output):-
     stringUpper(String, 0, Output).
 
+/* Delay output */
+delayText([], _).
+delayText([H|T], DelayTime):- 
+    put_char(H), 
+    flush_output, 
+    sleep(DelayTime), 
+    delayText(T, DelayTime).
+
+stringToList(Text, Index, []):-
+    atom_length(Text, Length),
+    Index == Length, !.
+
+stringToList(Text, Index, L):-
+    atom_length(Text, Length),
+    Index < Length,
+    ID1 is Index + 1,
+    sub_atom(Text, Index, 1, _, Char),
+    stringToList(Text, ID1, LTemp),
+    append([Char], LTemp, L).
+
+writeDelay(Text, DelayTime):-
+    stringToList(Text, 0, L),
+    delayText(L, DelayTime).
+
 % resetAllDynamicFacts tidak mereset menu_status
 resetAllDynamicFacts :-
     % alchemist.pl

@@ -47,12 +47,14 @@ toNextDay :-
     day(CurrDay),
     NextDay is CurrDay + 1,
     ( CurrMoney >= 20000
-      -> write('Congratulations! You have finally collected 20000 golds!'),nl,nl,
+      -> write('Congratulations! You have finally collected 20 000 golds!'),nl,nl,
          retractall(menu_status(_)),
          asserta(menu_status(game_not_started)),!;
       CurrMoney < 20000, NextDay > 28, season(winter)
-      -> write('You have worked hard, but in the end result is all that matters.'),nl,
-         write('May God bless you in the future with kind people!'),nl,nl,
+      -> Y1 = 'You have worked hard, but in the end result is all that matters...',
+         writeDelay(Y1, 0.15), nl,
+         Y2 = 'May God bless you in the future with kind people!',
+         writeDelay(Y2, 0.15), nl,nl,
          retractall(menu_status(_)),
          asserta(menu_status(game_not_started)),!   
     ),!,fail.
